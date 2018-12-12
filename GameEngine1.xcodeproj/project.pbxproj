@@ -8,23 +8,36 @@
 
 /* Begin PBXBuildFile section */
 		2EB6296321B9EBE200FCC9E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6296221B9EBE200FCC9E5 /* main.cpp */; };
+		2EE11F5C21BB0955001B407E /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE11F5B21BB0955001B407E /* libglfw.3.2.dylib */; };
+		2EE11F5E21BB097C001B407E /* libvulkan.1.1.92.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */; };
+		2EE11F5F21BB09AC001B407E /* libglfw.3.2.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EE11F5B21BB0955001B407E /* libglfw.3.2.dylib */; };
+		2EE11F6121BB09AC001B407E /* libvulkan.1.1.92.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */; };
+		2EE11F6321BB0AD2001B407E /* libvulkan.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE11F6221BB0AD2001B407E /* libvulkan.1.dylib */; };
+		2EE11F6421BB0AD6001B407E /* libvulkan.1.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EE11F6221BB0AD2001B407E /* libvulkan.1.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		2EB6295D21B9EBE200FCC9E5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = usr/share/man/man1;
+			dstSubfolderSpec = 10;
 			files = (
+				2EE11F6421BB0AD6001B407E /* libvulkan.1.dylib in CopyFiles */,
+				2EE11F5F21BB09AC001B407E /* libglfw.3.2.dylib in CopyFiles */,
+				2EE11F6121BB09AC001B407E /* libvulkan.1.1.92.dylib in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2EB6295F21B9EBE200FCC9E5 /* GameEngine1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine1; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB6296221B9EBE200FCC9E5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		2EB6296A21B9EFF500FCC9E5 /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../../usr/local/Cellar/glfw/3.2.1/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
+		2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.1.92.dylib; path = ../Dependencies/vulkan/macOS/lib/libvulkan.1.1.92.dylib; sourceTree = "<group>"; };
+		2EE11F5B21BB0955001B407E /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../../usr/local/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
+		2EE11F6221BB0AD2001B407E /* libvulkan.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.dylib; path = ../Dependencies/vulkan/macOS/lib/libvulkan.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +45,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EE11F5C21BB0955001B407E /* libglfw.3.2.dylib in Frameworks */,
+				2EE11F5E21BB097C001B407E /* libvulkan.1.1.92.dylib in Frameworks */,
+				2EE11F6321BB0AD2001B407E /* libvulkan.1.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +59,7 @@
 			children = (
 				2EB6296121B9EBE200FCC9E5 /* GameEngine1 */,
 				2EB6296021B9EBE200FCC9E5 /* Products */,
+				2EB6296921B9EFF500FCC9E5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +77,17 @@
 				2EB6296221B9EBE200FCC9E5 /* main.cpp */,
 			);
 			path = GameEngine1;
+			sourceTree = "<group>";
+		};
+		2EB6296921B9EFF500FCC9E5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2EE11F6221BB0AD2001B407E /* libvulkan.1.dylib */,
+				2EE11F5B21BB0955001B407E /* libglfw.3.2.dylib */,
+				2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */,
+				2EB6296A21B9EFF500FCC9E5 /* libglfw.3.2.dylib */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,7 +267,16 @@
 		2EB6296721B9EBE200FCC9E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/Users/sap/Documents/Projects/GameDev/Dependencies/vulkan/macOS/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/Users/sap/Documents/Projects/GameDev/Dependencies/vulkan/macOS/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -247,7 +284,16 @@
 		2EB6296821B9EBE200FCC9E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/Users/sap/Documents/Projects/GameDev/Dependencies/vulkan/macOS/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/Users/sap/Documents/Projects/GameDev/Dependencies/vulkan/macOS/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

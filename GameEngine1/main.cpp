@@ -7,8 +7,9 @@
 #include <functional>
 #include <cstdlib>
 #include <vector>
+#include <optional>
 
-class HelloTriangleApplication {
+class Main {
 
     const int WIDTH = 800;
     const int HEIGHT = 600;
@@ -22,10 +23,19 @@ class HelloTriangleApplication {
     private: const std::vector<const char*> validationLayers = {
         "VK_LAYER_LUNARG_standard_validation"
     };
+    
+    private: struct QueueFamilyIndices {
+        std::optional<uint32_t> graphicsFamily;
+        
+        bool isComplete() {
+            return graphicsFamily.has_value();
+        }
+    };
 
     private: GLFWwindow* window;
     private: VkInstance instance;
     private: VkDebugUtilsMessengerEXT callback;
+    private: VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
     
     static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
         VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
@@ -64,6 +74,61 @@ class HelloTriangleApplication {
     private: void initVulkan() {
         createInstance();
         setupDebugCallback();
+        pickPhysicalDevice();
+    }
+    
+    private: void pickPhysicalDevice() {
+        uint32_t deviceCount = 0;
+        vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
+        
+        if (deviceCount == 0) {
+            throw std::runtime_error("failed to find GPUs with Vulkan support!");
+        }
+        
+        std::vector<VkPhysicalDevice> devices(deviceCount);
+        vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
+        
+        for (const auto& device : devices) {
+            if (isDeviceSuitable(device)) {
+                physicalDevice = device;
+                break;
+            }
+        }
+        
+        if (physicalDevice == VK_NULL_HANDLE) {
+            throw std::runtime_error("failed to find a suitable GPU!");
+        }
+    }
+    
+    private: bool isDeviceSuitable(VkPhysicalDevice device) {
+        QueueFamilyIndices indices = findQueueIndices(device);
+        
+        return indices.isComplete();
+    }
+    
+    private: QueueFamilyIndices findQueueIndices(VkPhysicalDevice device) {
+        QueueFamilyIndices indices;
+        
+        uint32_t queueFamilyCount = 0;
+        vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
+        
+        std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
+        vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
+        
+        int i = 0;
+        for (const auto& queueFamily : queueFamilies) {
+            if (queueFamily.queueCount > 0 && queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
+                indices.graphicsFamily = i;
+            }
+            
+            if (indices.isComplete()) {
+                break;
+            }
+            
+            i++;
+        }
+        
+        return indices;
     }
     
     private: void setupDebugCallback() {
@@ -192,7 +257,7 @@ class HelloTriangleApplication {
 };
 
 int main() {
-    HelloTriangleApplication app;
+    Main app;
     
     try {
         app.run();

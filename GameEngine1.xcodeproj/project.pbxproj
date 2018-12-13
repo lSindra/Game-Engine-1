@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E468FE121C2A39C00DDBFF3 /* Headers in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E468FE021C2A39C00DDBFF3 /* Headers */; };
+		2E468FE221C2A3A300DDBFF3 /* Headers in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E468FE021C2A39C00DDBFF3 /* Headers */; };
+		2E468FE421C2A6E600DDBFF3 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */; };
+		2E468FE521C2A6F500DDBFF3 /* libglfw.3.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2EB6296321B9EBE200FCC9E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6296221B9EBE200FCC9E5 /* main.cpp */; };
-		2EE11F5C21BB0955001B407E /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE11F5B21BB0955001B407E /* libglfw.3.2.dylib */; };
 		2EE11F5E21BB097C001B407E /* libvulkan.1.1.92.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */; };
-		2EE11F5F21BB09AC001B407E /* libglfw.3.2.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EE11F5B21BB0955001B407E /* libglfw.3.2.dylib */; };
 		2EE11F6121BB09AC001B407E /* libvulkan.1.1.92.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */; };
 		2EE11F6321BB0AD2001B407E /* libvulkan.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE11F6221BB0AD2001B407E /* libvulkan.1.dylib */; };
 		2EE11F6421BB0AD6001B407E /* libvulkan.1.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EE11F6221BB0AD2001B407E /* libvulkan.1.dylib */; };
@@ -23,8 +25,9 @@
 			dstPath = usr/share/man/man1;
 			dstSubfolderSpec = 10;
 			files = (
+				2E468FE521C2A6F500DDBFF3 /* libglfw.3.3.dylib in CopyFiles */,
+				2E468FE221C2A3A300DDBFF3 /* Headers in CopyFiles */,
 				2EE11F6421BB0AD6001B407E /* libvulkan.1.dylib in CopyFiles */,
-				2EE11F5F21BB09AC001B407E /* libglfw.3.2.dylib in CopyFiles */,
 				2EE11F6121BB09AC001B407E /* libvulkan.1.1.92.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -32,6 +35,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2E468FE021C2A39C00DDBFF3 /* Headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Headers; path = ../Dependencies/vulkan/macOS/Frameworks/vulkan.framework/Versions/A/Headers; sourceTree = "<group>"; };
+		2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = "../../../../../../usr/local/Cellar/glfw/HEAD-f9923e9/lib/libglfw.3.3.dylib"; sourceTree = "<group>"; };
 		2EB6295F21B9EBE200FCC9E5 /* GameEngine1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine1; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB6296221B9EBE200FCC9E5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2EB6296A21B9EFF500FCC9E5 /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../../usr/local/Cellar/glfw/3.2.1/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
@@ -45,7 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EE11F5C21BB0955001B407E /* libglfw.3.2.dylib in Frameworks */,
+				2E468FE421C2A6E600DDBFF3 /* libglfw.3.3.dylib in Frameworks */,
+				2E468FE121C2A39C00DDBFF3 /* Headers in Frameworks */,
 				2EE11F5E21BB097C001B407E /* libvulkan.1.1.92.dylib in Frameworks */,
 				2EE11F6321BB0AD2001B407E /* libvulkan.1.dylib in Frameworks */,
 			);
@@ -82,6 +88,8 @@
 		2EB6296921B9EFF500FCC9E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */,
+				2E468FE021C2A39C00DDBFF3 /* Headers */,
 				2EE11F6221BB0AD2001B407E /* libvulkan.1.dylib */,
 				2EE11F5B21BB0955001B407E /* libglfw.3.2.dylib */,
 				2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */,
@@ -277,6 +285,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					/Users/sap/Documents/Projects/GameDev/Dependencies/vulkan/macOS/lib,
+					"/usr/local/Cellar/glfw/HEAD-f9923e9/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -295,6 +304,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					/Users/sap/Documents/Projects/GameDev/Dependencies/vulkan/macOS/lib,
+					"/usr/local/Cellar/glfw/HEAD-f9923e9/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E378A4021C3DD1400A53B5C /* FileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A3F21C3DD1400A53B5C /* FileReader.cpp */; };
 		2E468FE121C2A39C00DDBFF3 /* Headers in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E468FE021C2A39C00DDBFF3 /* Headers */; };
 		2E468FE221C2A3A300DDBFF3 /* Headers in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E468FE021C2A39C00DDBFF3 /* Headers */; };
 		2E468FE421C2A6E600DDBFF3 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */; };
@@ -35,13 +36,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2E378A3A21C3D54000A53B5C /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
+		2E378A3D21C3D6FF00A53B5C /* FileReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileReader.hpp; sourceTree = "<group>"; };
+		2E378A3F21C3DD1400A53B5C /* FileReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileReader.cpp; sourceTree = "<group>"; };
 		2E468FE021C2A39C00DDBFF3 /* Headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Headers; path = ../Dependencies/vulkan/macOS/Frameworks/vulkan.framework/Versions/A/Headers; sourceTree = "<group>"; };
 		2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = "../../../../../../usr/local/Cellar/glfw/HEAD-f9923e9/lib/libglfw.3.3.dylib"; sourceTree = "<group>"; };
 		2EB6295F21B9EBE200FCC9E5 /* GameEngine1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine1; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB6296221B9EBE200FCC9E5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		2EB6296A21B9EFF500FCC9E5 /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../../usr/local/Cellar/glfw/3.2.1/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
 		2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.1.92.dylib; path = ../Dependencies/vulkan/macOS/lib/libvulkan.1.1.92.dylib; sourceTree = "<group>"; };
-		2EE11F5B21BB0955001B407E /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../../usr/local/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
 		2EE11F6221BB0AD2001B407E /* libvulkan.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.dylib; path = ../Dependencies/vulkan/macOS/lib/libvulkan.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,6 +62,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E378A3B21C3D6E200A53B5C /* FileLoader */ = {
+			isa = PBXGroup;
+			children = (
+				2E378A3D21C3D6FF00A53B5C /* FileReader.hpp */,
+				2E378A3F21C3DD1400A53B5C /* FileReader.cpp */,
+			);
+			path = FileLoader;
+			sourceTree = "<group>";
+		};
 		2EB6295621B9EBE200FCC9E5 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +91,8 @@
 		2EB6296121B9EBE200FCC9E5 /* GameEngine1 */ = {
 			isa = PBXGroup;
 			children = (
+				2E378A3B21C3D6E200A53B5C /* FileLoader */,
+				2E378A3A21C3D54000A53B5C /* Shaders */,
 				2EB6296221B9EBE200FCC9E5 /* main.cpp */,
 			);
 			path = GameEngine1;
@@ -91,9 +104,7 @@
 				2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */,
 				2E468FE021C2A39C00DDBFF3 /* Headers */,
 				2EE11F6221BB0AD2001B407E /* libvulkan.1.dylib */,
-				2EE11F5B21BB0955001B407E /* libglfw.3.2.dylib */,
 				2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */,
-				2EB6296A21B9EFF500FCC9E5 /* libglfw.3.2.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -154,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E378A4021C3DD1400A53B5C /* FileReader.cpp in Sources */,
 				2EB6296321B9EBE200FCC9E5 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

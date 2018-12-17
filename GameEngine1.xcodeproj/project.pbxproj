@@ -8,11 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		2E378A4021C3DD1400A53B5C /* FileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A3F21C3DD1400A53B5C /* FileReader.cpp */; };
+		2E378A4321C6899E00A53B5C /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A4221C6899E00A53B5C /* Main.cpp */; };
+		2E378A4921C698AB00A53B5C /* SwapChainManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A4721C698AB00A53B5C /* SwapChainManager.cpp */; };
+		2E378A4D21C69A9300A53B5C /* DebugMessager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A4B21C69A9300A53B5C /* DebugMessager.cpp */; };
+		2E378A5021C69B0300A53B5C /* ValidationLayerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A4E21C69B0300A53B5C /* ValidationLayerManager.cpp */; };
+		2E378A5321C69CB800A53B5C /* WindowManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A5121C69CB800A53B5C /* WindowManager.cpp */; };
+		2E378A5621C6C25B00A53B5C /* QueueFamiliesManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A5421C6C25B00A53B5C /* QueueFamiliesManager.cpp */; };
+		2E378A5921C6D91700A53B5C /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A5721C6D91700A53B5C /* Renderer.cpp */; };
+		2E378A5C21C6F5DB00A53B5C /* DeviceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A5A21C6F5DB00A53B5C /* DeviceManager.cpp */; };
+		2E378A5F21C6F6B600A53B5C /* ExtensionsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A5D21C6F6B500A53B5C /* ExtensionsManager.cpp */; };
+		2E378A6221C6FC6300A53B5C /* ShaderGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A6021C6FC6300A53B5C /* ShaderGraphics.cpp */; };
+		2E378A6521C7009200A53B5C /* InstanceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A6321C7009200A53B5C /* InstanceManager.cpp */; };
 		2E468FE121C2A39C00DDBFF3 /* Headers in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E468FE021C2A39C00DDBFF3 /* Headers */; };
 		2E468FE221C2A3A300DDBFF3 /* Headers in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E468FE021C2A39C00DDBFF3 /* Headers */; };
 		2E468FE421C2A6E600DDBFF3 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */; };
 		2E468FE521C2A6F500DDBFF3 /* libglfw.3.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		2EB6296321B9EBE200FCC9E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6296221B9EBE200FCC9E5 /* main.cpp */; };
+		2EB6296321B9EBE200FCC9E5 /* GameLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6296221B9EBE200FCC9E5 /* GameLogic.cpp */; };
 		2EE11F5E21BB097C001B407E /* libvulkan.1.1.92.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */; };
 		2EE11F6121BB09AC001B407E /* libvulkan.1.1.92.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */; };
 		2EE11F6321BB0AD2001B407E /* libvulkan.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE11F6221BB0AD2001B407E /* libvulkan.1.dylib */; };
@@ -37,12 +48,34 @@
 
 /* Begin PBXFileReference section */
 		2E378A3A21C3D54000A53B5C /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
-		2E378A3D21C3D6FF00A53B5C /* FileReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileReader.hpp; sourceTree = "<group>"; };
+		2E378A3D21C3D6FF00A53B5C /* FileReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileReader.h; sourceTree = "<group>"; };
 		2E378A3F21C3DD1400A53B5C /* FileReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileReader.cpp; sourceTree = "<group>"; };
+		2E378A4221C6899E00A53B5C /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
+		2E378A4521C68B7700A53B5C /* GameLogic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameLogic.h; sourceTree = "<group>"; };
+		2E378A4721C698AB00A53B5C /* SwapChainManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SwapChainManager.cpp; sourceTree = "<group>"; };
+		2E378A4821C698AB00A53B5C /* SwapChainManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwapChainManager.h; sourceTree = "<group>"; };
+		2E378A4B21C69A9300A53B5C /* DebugMessager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DebugMessager.cpp; sourceTree = "<group>"; };
+		2E378A4C21C69A9300A53B5C /* DebugMessager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugMessager.h; sourceTree = "<group>"; };
+		2E378A4E21C69B0300A53B5C /* ValidationLayerManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ValidationLayerManager.cpp; sourceTree = "<group>"; };
+		2E378A4F21C69B0300A53B5C /* ValidationLayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValidationLayerManager.h; sourceTree = "<group>"; };
+		2E378A5121C69CB800A53B5C /* WindowManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WindowManager.cpp; sourceTree = "<group>"; };
+		2E378A5221C69CB800A53B5C /* WindowManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowManager.h; sourceTree = "<group>"; };
+		2E378A5421C6C25B00A53B5C /* QueueFamiliesManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = QueueFamiliesManager.cpp; sourceTree = "<group>"; };
+		2E378A5521C6C25B00A53B5C /* QueueFamiliesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueueFamiliesManager.h; sourceTree = "<group>"; };
+		2E378A5721C6D91700A53B5C /* Renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
+		2E378A5821C6D91700A53B5C /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		2E378A5A21C6F5DB00A53B5C /* DeviceManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DeviceManager.cpp; sourceTree = "<group>"; };
+		2E378A5B21C6F5DB00A53B5C /* DeviceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceManager.h; sourceTree = "<group>"; };
+		2E378A5D21C6F6B500A53B5C /* ExtensionsManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ExtensionsManager.cpp; sourceTree = "<group>"; };
+		2E378A5E21C6F6B600A53B5C /* ExtensionsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionsManager.h; sourceTree = "<group>"; };
+		2E378A6021C6FC6300A53B5C /* ShaderGraphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderGraphics.cpp; sourceTree = "<group>"; };
+		2E378A6121C6FC6300A53B5C /* ShaderGraphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderGraphics.h; sourceTree = "<group>"; };
+		2E378A6321C7009200A53B5C /* InstanceManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InstanceManager.cpp; sourceTree = "<group>"; };
+		2E378A6421C7009200A53B5C /* InstanceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstanceManager.h; sourceTree = "<group>"; };
 		2E468FE021C2A39C00DDBFF3 /* Headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Headers; path = ../Dependencies/vulkan/macOS/Frameworks/vulkan.framework/Versions/A/Headers; sourceTree = "<group>"; };
 		2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = "../../../../../../usr/local/Cellar/glfw/HEAD-f9923e9/lib/libglfw.3.3.dylib"; sourceTree = "<group>"; };
 		2EB6295F21B9EBE200FCC9E5 /* GameEngine1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine1; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EB6296221B9EBE200FCC9E5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		2EB6296221B9EBE200FCC9E5 /* GameLogic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameLogic.cpp; sourceTree = "<group>"; };
 		2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.1.92.dylib; path = ../Dependencies/vulkan/macOS/lib/libvulkan.1.1.92.dylib; sourceTree = "<group>"; };
 		2EE11F6221BB0AD2001B407E /* libvulkan.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.dylib; path = ../Dependencies/vulkan/macOS/lib/libvulkan.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,10 +98,46 @@
 		2E378A3B21C3D6E200A53B5C /* FileLoader */ = {
 			isa = PBXGroup;
 			children = (
-				2E378A3D21C3D6FF00A53B5C /* FileReader.hpp */,
+				2E378A3D21C3D6FF00A53B5C /* FileReader.h */,
 				2E378A3F21C3DD1400A53B5C /* FileReader.cpp */,
 			);
 			path = FileLoader;
+			sourceTree = "<group>";
+		};
+		2E378A4121C6896F00A53B5C /* GameLogic */ = {
+			isa = PBXGroup;
+			children = (
+				2EB6296221B9EBE200FCC9E5 /* GameLogic.cpp */,
+				2E378A4521C68B7700A53B5C /* GameLogic.h */,
+				2E378A4721C698AB00A53B5C /* SwapChainManager.cpp */,
+				2E378A4821C698AB00A53B5C /* SwapChainManager.h */,
+				2E378A5121C69CB800A53B5C /* WindowManager.cpp */,
+				2E378A5221C69CB800A53B5C /* WindowManager.h */,
+				2E378A5421C6C25B00A53B5C /* QueueFamiliesManager.cpp */,
+				2E378A5521C6C25B00A53B5C /* QueueFamiliesManager.h */,
+				2E378A5721C6D91700A53B5C /* Renderer.cpp */,
+				2E378A5821C6D91700A53B5C /* Renderer.h */,
+				2E378A5A21C6F5DB00A53B5C /* DeviceManager.cpp */,
+				2E378A5B21C6F5DB00A53B5C /* DeviceManager.h */,
+				2E378A5D21C6F6B500A53B5C /* ExtensionsManager.cpp */,
+				2E378A5E21C6F6B600A53B5C /* ExtensionsManager.h */,
+				2E378A6021C6FC6300A53B5C /* ShaderGraphics.cpp */,
+				2E378A6121C6FC6300A53B5C /* ShaderGraphics.h */,
+				2E378A6321C7009200A53B5C /* InstanceManager.cpp */,
+				2E378A6421C7009200A53B5C /* InstanceManager.h */,
+			);
+			path = GameLogic;
+			sourceTree = "<group>";
+		};
+		2E378A4A21C69A7500A53B5C /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				2E378A4B21C69A9300A53B5C /* DebugMessager.cpp */,
+				2E378A4C21C69A9300A53B5C /* DebugMessager.h */,
+				2E378A4E21C69B0300A53B5C /* ValidationLayerManager.cpp */,
+				2E378A4F21C69B0300A53B5C /* ValidationLayerManager.h */,
+			);
+			path = Debug;
 			sourceTree = "<group>";
 		};
 		2EB6295621B9EBE200FCC9E5 = {
@@ -91,9 +160,11 @@
 		2EB6296121B9EBE200FCC9E5 /* GameEngine1 */ = {
 			isa = PBXGroup;
 			children = (
+				2E378A4A21C69A7500A53B5C /* Debug */,
+				2E378A4121C6896F00A53B5C /* GameLogic */,
 				2E378A3B21C3D6E200A53B5C /* FileLoader */,
 				2E378A3A21C3D54000A53B5C /* Shaders */,
-				2EB6296221B9EBE200FCC9E5 /* main.cpp */,
+				2E378A4221C6899E00A53B5C /* Main.cpp */,
 			);
 			path = GameEngine1;
 			sourceTree = "<group>";
@@ -165,8 +236,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E378A5921C6D91700A53B5C /* Renderer.cpp in Sources */,
+				2E378A5321C69CB800A53B5C /* WindowManager.cpp in Sources */,
+				2E378A4321C6899E00A53B5C /* Main.cpp in Sources */,
 				2E378A4021C3DD1400A53B5C /* FileReader.cpp in Sources */,
-				2EB6296321B9EBE200FCC9E5 /* main.cpp in Sources */,
+				2E378A5621C6C25B00A53B5C /* QueueFamiliesManager.cpp in Sources */,
+				2E378A5C21C6F5DB00A53B5C /* DeviceManager.cpp in Sources */,
+				2E378A6521C7009200A53B5C /* InstanceManager.cpp in Sources */,
+				2E378A5F21C6F6B600A53B5C /* ExtensionsManager.cpp in Sources */,
+				2E378A4D21C69A9300A53B5C /* DebugMessager.cpp in Sources */,
+				2E378A4921C698AB00A53B5C /* SwapChainManager.cpp in Sources */,
+				2E378A5021C69B0300A53B5C /* ValidationLayerManager.cpp in Sources */,
+				2EB6296321B9EBE200FCC9E5 /* GameLogic.cpp in Sources */,
+				2E378A6221C6FC6300A53B5C /* ShaderGraphics.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

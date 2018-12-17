@@ -16,4 +16,5 @@ public:
     GLFWwindow* window;
 
     void initWindow();
+    void destroyWindow();
 };

@@ -17,3 +17,9 @@ void WindowManager::initWindow() {
 //        exit(EXIT_FAILURE);
     }
 }
+
+void WindowManager::destroyWindow() {
+    glfwDestroyWindow(window);
+    
+    glfwTerminate();
+}

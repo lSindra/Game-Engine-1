@@ -21,6 +21,7 @@ namespace QueueFamilies {
     
     class QueueFamiliesManager {
     public:
-        static QueueFamilyIndices findQueueFamilies(VkPhysicalDevice physicalDevice);
+        static QueueFamilyIndices findQueueFamilies(VkPhysicalDevice* physicalDevice);
+        static VkDeviceQueueCreateInfo getQueueInfo(VkPhysicalDevice* physicalDevice);
     };
 }

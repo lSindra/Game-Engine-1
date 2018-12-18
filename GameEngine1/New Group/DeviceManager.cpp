@@ -64,10 +64,13 @@ void DeviceManager::initDevice() {
     windowManager.initWindow();
     createInstance();
     validationLayersManager.setupDebugCallback(instance);
-    DevicePicker::pickPhysicalDevice(instance, physicalDevice);
+    DevicePicker::pickPhysicalDevice(instance, &physicalDevice);
+    DevicePicker::createLogicalDevice(instance, &physicalDevice, device, graphicsQueue);
 }
 
 void DeviceManager::cleanup() {
+    vkDestroyDevice(device, nullptr);
+    
     validationLayersManager.cleanup();
     
     vkDestroyInstance(instance, nullptr);

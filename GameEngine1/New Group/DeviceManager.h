@@ -18,6 +18,8 @@ private:
     ValidationLayersManager validationLayersManager =* new ValidationLayersManager();
     VkInstance instance;
     
+    VkQueue graphicsQueue;
+    VkDevice device;
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
     VkPhysicalDeviceProperties gpu_properties = {};
     

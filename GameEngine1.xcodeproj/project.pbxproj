@@ -15,6 +15,7 @@
 		2E468FE421C2A6E600DDBFF3 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */; };
 		2E468FE521C2A6F500DDBFF3 /* libglfw.3.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2E48AF0521C80E7300B1E5EC /* WindowManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E48AF0321C80E7300B1E5EC /* WindowManager.cpp */; };
+		2E48AF0821C81CD200B1E5EC /* ValidationLayersManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E48AF0621C81CD200B1E5EC /* ValidationLayersManager.cpp */; };
 		2EB6296321B9EBE200FCC9E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6296221B9EBE200FCC9E5 /* main.cpp */; };
 		2EE11F5E21BB097C001B407E /* libvulkan.1.1.92.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */; };
 		2EE11F6121BB09AC001B407E /* libvulkan.1.1.92.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */; };
@@ -50,6 +51,8 @@
 		2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = "../../../../../../usr/local/Cellar/glfw/HEAD-f9923e9/lib/libglfw.3.3.dylib"; sourceTree = "<group>"; };
 		2E48AF0321C80E7300B1E5EC /* WindowManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WindowManager.cpp; sourceTree = "<group>"; };
 		2E48AF0421C80E7300B1E5EC /* WindowManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowManager.h; sourceTree = "<group>"; };
+		2E48AF0621C81CD200B1E5EC /* ValidationLayersManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ValidationLayersManager.cpp; sourceTree = "<group>"; };
+		2E48AF0721C81CD200B1E5EC /* ValidationLayersManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValidationLayersManager.h; sourceTree = "<group>"; };
 		2EB6295F21B9EBE200FCC9E5 /* GameEngine1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine1; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB6296221B9EBE200FCC9E5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.1.92.dylib; path = ../Dependencies/vulkan/macOS/lib/libvulkan.1.1.92.dylib; sourceTree = "<group>"; };
@@ -80,6 +83,8 @@
 				2E2874C121C80B5C00A135CA /* DeviceManager.h */,
 				2E48AF0321C80E7300B1E5EC /* WindowManager.cpp */,
 				2E48AF0421C80E7300B1E5EC /* WindowManager.h */,
+				2E48AF0621C81CD200B1E5EC /* ValidationLayersManager.cpp */,
+				2E48AF0721C81CD200B1E5EC /* ValidationLayersManager.h */,
 			);
 			name = GameLogic;
 			path = "New Group";
@@ -189,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E48AF0821C81CD200B1E5EC /* ValidationLayersManager.cpp in Sources */,
 				2E378A4021C3DD1400A53B5C /* FileReader.cpp in Sources */,
 				2E2874BF21C7D42B00A135CA /* Game.cpp in Sources */,
 				2E48AF0521C80E7300B1E5EC /* WindowManager.cpp in Sources */,

@@ -43,7 +43,7 @@ void DeviceManager::createInstance() {
 }
 
 GLFWwindow* DeviceManager::getWindow() {
-    return world_window->window;
+    return windowManager.window;
 }
 
 vector<const char*> DeviceManager::getRequiredExtensions() {
@@ -60,12 +60,15 @@ vector<const char*> DeviceManager::getRequiredExtensions() {
     return extensions;
 }
 
-void DeviceManager::initDevice() {
-    world_window = std::make_shared<WindowManager>();
-    world_window->initWindow();
+void pickPhysicalDevice() {
     
+}
+
+void DeviceManager::initDevice() {
+    windowManager.initWindow();
     createInstance();
     validationLayersManager.setupDebugCallback(instance);
+    pickPhysicalDevice();
 }
 
 void DeviceManager::cleanup() {
@@ -73,5 +76,5 @@ void DeviceManager::cleanup() {
     
     vkDestroyInstance(instance, nullptr);
     
-    world_window->destroyWindow();
+    windowManager.destroyWindow();
 }

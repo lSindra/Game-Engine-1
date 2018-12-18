@@ -13,7 +13,7 @@ using namespace std;
 
 class DeviceManager {
 private:
-    shared_ptr<WindowManager> world_window = nullptr;
+    WindowManager windowManager =* new WindowManager();
     ValidationLayersManager validationLayersManager =* new ValidationLayersManager();
     VkInstance instance;
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E0C6FC421C94BBA00DEFD02 /* DevicePicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C6FC221C94BBA00DEFD02 /* DevicePicker.cpp */; };
 		2E2874BF21C7D42B00A135CA /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E2874BD21C7D42B00A135CA /* Game.cpp */; };
 		2E2874C221C80B5C00A135CA /* DeviceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E2874C021C80B5C00A135CA /* DeviceManager.cpp */; };
 		2E378A4021C3DD1400A53B5C /* FileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E378A3F21C3DD1400A53B5C /* FileReader.cpp */; };
@@ -16,6 +17,7 @@
 		2E468FE521C2A6F500DDBFF3 /* libglfw.3.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2E48AF0521C80E7300B1E5EC /* WindowManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E48AF0321C80E7300B1E5EC /* WindowManager.cpp */; };
 		2E48AF0821C81CD200B1E5EC /* ValidationLayersManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E48AF0621C81CD200B1E5EC /* ValidationLayersManager.cpp */; };
+		2EAEA0C821C94EB300D8901E /* QueueFamiliesManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EAEA0C621C94EB300D8901E /* QueueFamiliesManager.cpp */; };
 		2EB6296321B9EBE200FCC9E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EB6296221B9EBE200FCC9E5 /* main.cpp */; };
 		2EE11F5E21BB097C001B407E /* libvulkan.1.1.92.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */; };
 		2EE11F6121BB09AC001B407E /* libvulkan.1.1.92.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */; };
@@ -40,6 +42,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2E0C6FC221C94BBA00DEFD02 /* DevicePicker.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DevicePicker.cpp; sourceTree = "<group>"; };
+		2E0C6FC321C94BBA00DEFD02 /* DevicePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevicePicker.h; sourceTree = "<group>"; };
 		2E2874BD21C7D42B00A135CA /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		2E2874BE21C7D42B00A135CA /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		2E2874C021C80B5C00A135CA /* DeviceManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DeviceManager.cpp; sourceTree = "<group>"; };
@@ -53,6 +57,8 @@
 		2E48AF0421C80E7300B1E5EC /* WindowManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowManager.h; sourceTree = "<group>"; };
 		2E48AF0621C81CD200B1E5EC /* ValidationLayersManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ValidationLayersManager.cpp; sourceTree = "<group>"; };
 		2E48AF0721C81CD200B1E5EC /* ValidationLayersManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValidationLayersManager.h; sourceTree = "<group>"; };
+		2EAEA0C621C94EB300D8901E /* QueueFamiliesManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = QueueFamiliesManager.cpp; sourceTree = "<group>"; };
+		2EAEA0C721C94EB300D8901E /* QueueFamiliesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueueFamiliesManager.h; sourceTree = "<group>"; };
 		2EB6295F21B9EBE200FCC9E5 /* GameEngine1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine1; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB6296221B9EBE200FCC9E5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2EB6296C21B9F03A00FCC9E5 /* libvulkan.1.1.92.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.1.92.dylib; path = ../Dependencies/vulkan/macOS/lib/libvulkan.1.1.92.dylib; sourceTree = "<group>"; };
@@ -81,6 +87,10 @@
 				2E2874BE21C7D42B00A135CA /* Game.h */,
 				2E2874C021C80B5C00A135CA /* DeviceManager.cpp */,
 				2E2874C121C80B5C00A135CA /* DeviceManager.h */,
+				2E0C6FC221C94BBA00DEFD02 /* DevicePicker.cpp */,
+				2E0C6FC321C94BBA00DEFD02 /* DevicePicker.h */,
+				2EAEA0C621C94EB300D8901E /* QueueFamiliesManager.cpp */,
+				2EAEA0C721C94EB300D8901E /* QueueFamiliesManager.h */,
 				2E48AF0321C80E7300B1E5EC /* WindowManager.cpp */,
 				2E48AF0421C80E7300B1E5EC /* WindowManager.h */,
 				2E48AF0621C81CD200B1E5EC /* ValidationLayersManager.cpp */,
@@ -197,9 +207,11 @@
 				2E48AF0821C81CD200B1E5EC /* ValidationLayersManager.cpp in Sources */,
 				2E378A4021C3DD1400A53B5C /* FileReader.cpp in Sources */,
 				2E2874BF21C7D42B00A135CA /* Game.cpp in Sources */,
+				2EAEA0C821C94EB300D8901E /* QueueFamiliesManager.cpp in Sources */,
 				2E48AF0521C80E7300B1E5EC /* WindowManager.cpp in Sources */,
 				2EB6296321B9EBE200FCC9E5 /* main.cpp in Sources */,
 				2E2874C221C80B5C00A135CA /* DeviceManager.cpp in Sources */,
+				2E0C6FC421C94BBA00DEFD02 /* DevicePicker.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

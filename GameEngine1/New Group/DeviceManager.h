@@ -5,6 +5,7 @@
 #include <vulkan/vulkan.h>
 #include "WindowManager.h"
 #include "ValidationLayersManager.h"
+#include "DevicePicker.h"
 
 #include <iostream>
 #include <vector>
@@ -16,6 +17,9 @@ private:
     WindowManager windowManager =* new WindowManager();
     ValidationLayersManager validationLayersManager =* new ValidationLayersManager();
     VkInstance instance;
+    
+    VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+    VkPhysicalDeviceProperties gpu_properties = {};
     
 private:
     void createInstance();

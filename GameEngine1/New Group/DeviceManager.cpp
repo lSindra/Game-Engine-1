@@ -60,15 +60,11 @@ vector<const char*> DeviceManager::getRequiredExtensions() {
     return extensions;
 }
 
-void pickPhysicalDevice() {
-    
-}
-
 void DeviceManager::initDevice() {
     windowManager.initWindow();
     createInstance();
     validationLayersManager.setupDebugCallback(instance);
-    pickPhysicalDevice();
+    DevicePicker::pickPhysicalDevice(instance, physicalDevice);
 }
 
 void DeviceManager::cleanup() {

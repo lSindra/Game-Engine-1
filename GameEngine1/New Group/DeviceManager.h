@@ -8,6 +8,7 @@
 #include "DevicePicker.h"
 #include "Renderer.h"
 #include "Device.h"
+#include "GraphicsPipeline.h"
 
 #include <iostream>
 #include <vector>

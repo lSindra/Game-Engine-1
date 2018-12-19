@@ -77,6 +77,7 @@ void DeviceManager::initDevice() {
     DevicePicker::createLogicalDevice(device);
     DevicePicker::createSwapChain(device);
     Renderer::createImageViews(device);
+    GraphicsPipeline::createGraphicsPipeline(device);
 }
 
 static void cleanupSwapChain(Device *device) {

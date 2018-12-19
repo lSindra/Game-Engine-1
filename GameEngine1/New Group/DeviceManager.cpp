@@ -75,9 +75,12 @@ void DeviceManager::initDevice() {
     createSurface();
     DevicePicker::pickPhysicalDevice(device);
     DevicePicker::createLogicalDevice(device);
+    DevicePicker::createSwapChain(device);
 }
 
 void DeviceManager::cleanup() {
+    vkDestroySwapchainKHR(device->logicalDevice, device->swapChain.swapChainKHR, nullptr);
+    
     vkDestroyDevice(device->logicalDevice, nullptr);
     
     validationLayersManager.cleanup();

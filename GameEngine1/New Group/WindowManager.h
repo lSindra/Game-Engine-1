@@ -9,7 +9,7 @@
 class WindowManager {
 private:
     int WIDTH = 800;
-    int HEIGH = 600;
+    int HEIGHT = 600;
     
     int* width;
     int* height;

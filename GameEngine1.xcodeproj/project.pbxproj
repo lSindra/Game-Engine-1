@@ -61,6 +61,7 @@
 		2E9BA32821CA670A0061249D /* Device.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
 		2E9BA32A21CA96E20061249D /* SwapChainManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SwapChainManager.cpp; sourceTree = "<group>"; };
 		2E9BA32B21CA96E20061249D /* SwapChainManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwapChainManager.h; sourceTree = "<group>"; };
+		2E9BA32D21CA9F7F0061249D /* SwapChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwapChain.h; sourceTree = "<group>"; };
 		2EAEA0C621C94EB300D8901E /* QueueFamiliesManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = QueueFamiliesManager.cpp; sourceTree = "<group>"; };
 		2EAEA0C721C94EB300D8901E /* QueueFamiliesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueueFamiliesManager.h; sourceTree = "<group>"; };
 		2EB6295F21B9EBE200FCC9E5 /* GameEngine1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine1; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				2E9BA32821CA670A0061249D /* Device.h */,
+				2E9BA32D21CA9F7F0061249D /* SwapChain.h */,
 			);
 			path = Objects;
 			sourceTree = "<group>";

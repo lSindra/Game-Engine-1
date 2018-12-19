@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
 #include "QueueFamiliesManager.h"
+#include "ValidationLayersManager.h"
 
 #include <iostream>
 #include <vector>

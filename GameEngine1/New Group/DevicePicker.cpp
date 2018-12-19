@@ -1,5 +1,9 @@
 #include "DevicePicker.h"
 
+const vector<const char*> validationLayers = {
+    "VK_LAYER_LUNARG_standard_validation"
+};
+
 void DevicePicker::pickPhysicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice) {
     uint32_t deviceCount = 0;
     vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
@@ -29,8 +33,9 @@ bool DevicePicker::isDeviceSuitable(VkPhysicalDevice physicalDevice) {
     return indices.isComplete();
 }
 
-//happens here
+//error here
 void DevicePicker::createLogicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice, VkDevice device, VkQueue graphicsQueue) {
+    ValidationLayersManager validationLayersManager = ValidationLayersManager::getInstance();
     VkDeviceQueueCreateInfo queueCreateInfo = QueueFamiliesManager::getQueueInfo(physicalDevice);
     
     VkPhysicalDeviceFeatures deviceFeatures = {};
@@ -45,12 +50,12 @@ void DevicePicker::createLogicalDevice(VkInstance instance, VkPhysicalDevice* ph
     
     createInfo.enabledExtensionCount = 0;
     
-//    if (enableValidationLayers) {
-//        createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
-//        createInfo.ppEnabledLayerNames = validationLayers.data();
-//    } else {
-//        createInfo.enabledLayerCount = 0;
-//    }
+    if (validationLayersManager.isValidationLayersEnabled()) {
+        createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
+        createInfo.ppEnabledLayerNames = validationLayers.data();
+    } else {
+        createInfo.enabledLayerCount = 0;
+    }
     
     if (vkCreateDevice(*physicalDevice, &createInfo, nullptr, &device) != VK_SUCCESS) {
         throw std::runtime_error("failed to create logical device!");

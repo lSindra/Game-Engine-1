@@ -15,7 +15,7 @@ using namespace std;
 class DeviceManager {
 private:
     WindowManager windowManager =* new WindowManager();
-    ValidationLayersManager validationLayersManager =* new ValidationLayersManager();
+    ValidationLayersManager validationLayersManager = ValidationLayersManager::getInstance();
     VkInstance instance;
     
     VkQueue graphicsQueue;

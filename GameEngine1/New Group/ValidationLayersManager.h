@@ -26,10 +26,18 @@ class ValidationLayersManager {
     VkDebugUtilsMessengerEXT callback;
     VkInstance instance;
     
+public:
+    static ValidationLayersManager& getInstance()
+    {
+        static ValidationLayersManager inst;
+        return inst;
+    }
+    
 private:
     VkResult createDebugUtilsMessengerEXT(const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pCallback);
     void destroyDebugUtilsMessengerEXT(VkDebugUtilsMessengerEXT callback, const VkAllocationCallbacks* pAllocator);
     void initValidationLayers();
+    ValidationLayersManager() {}
     
 public:
     bool isValidationLayersEnabled();

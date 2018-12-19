@@ -27,13 +27,21 @@ void DevicePicker::pickPhysicalDevice(Device* device) {
     }
 }
 
+static bool checkDeviceForSwapChainSupport(Device* device) {
+    bool swapChainAdequate = false;
+    SwapChainManager::SwapChainSupportDetails swapChainSupport = SwapChainManager::querySwapChainSupport(device);
+    swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
+    return swapChainAdequate;
+}
+
 bool DevicePicker::isDeviceSuitable(VkPhysicalDevice physicalDevice, VkSurfaceKHR* surface) {
     Device* tempDevice = new Device();
     tempDevice->physicalDevice = physicalDevice;
     tempDevice->surface = *surface;
-    QueueFamilyIndices indices = QueueFamiliesManager::findQueueFamilies(tempDevice);
-    
-    return indices.isComplete() && checkDeviceExtensionSupport(tempDevice);
+
+    return QueueFamiliesManager::findQueueFamilies(tempDevice).isComplete() &&
+            checkDeviceExtensionSupport(tempDevice) &&
+            checkDeviceForSwapChainSupport(tempDevice);
 }
 
 bool DevicePicker::checkDeviceExtensionSupport(Device* device) {

@@ -7,8 +7,7 @@
 #include <iostream>
 #include <vector>
 
-class Device {
-public:
+struct Device {
     VkInstance instance;
     VkSurfaceKHR surface;
     VkQueue graphicsQueue;

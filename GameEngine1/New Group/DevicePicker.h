@@ -5,6 +5,7 @@
 #include <vulkan/vulkan.h>
 #include "QueueFamiliesManager.h"
 #include "ValidationLayersManager.h"
+#include "SwapChainManager.h"
 #include "Device.h"
 
 #include <iostream>
@@ -21,5 +22,7 @@ public:
     static VkDeviceQueueCreateInfo getQueueInfo(VkPhysicalDevice physicalDevice);
     static void createLogicalDevice(Device* device);
     static void pickPhysicalDevice(Device* device);
+    static void extracted();
+    
     static bool isDeviceSuitable(VkPhysicalDevice physicalDevice, VkSurfaceKHR* surface);
 };

@@ -77,6 +77,7 @@ void DeviceManager::initDevice() {
     DevicePicker::createLogicalDevice(device);
     DevicePicker::createSwapChain(device);
     Renderer::createImageViews(device);
+    Renderer::createRenderPass(device);
     GraphicsPipeline::createGraphicsPipeline(device);
 }
 
@@ -89,8 +90,11 @@ static void cleanupSwapChain(Device *device) {
 }
 
 void DeviceManager::cleanup() {
-    cleanupSwapChain(device);
+    vkDestroyPipeline(device->logicalDevice, device->graphicsPipeline, nullptr);
+    vkDestroyPipelineLayout(device->logicalDevice, device->pipelineLayout, nullptr);
+    vkDestroyRenderPass(device->logicalDevice, device->renderPass, nullptr);
     
+    cleanupSwapChain(device);
     vkDestroyDevice(device->logicalDevice, nullptr);
     
     validationLayersManager.cleanup();

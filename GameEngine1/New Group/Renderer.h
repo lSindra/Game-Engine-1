@@ -8,4 +8,5 @@
 class Renderer {
 public:
     static void createImageViews(Device* device);
+    static void createRenderPass(Device* device);
 };

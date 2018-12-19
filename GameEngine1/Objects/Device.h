@@ -16,7 +16,10 @@ struct Device {
     VkDevice logicalDevice;
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
     VkPhysicalDeviceProperties gpu_properties = {};
-
+    VkPipeline graphicsPipeline;
+    VkPipelineLayout pipelineLayout;
+    VkRenderPass renderPass;
+    
     SwapChain swapChain;
     
     const std::vector<const char*> deviceExtensions = {

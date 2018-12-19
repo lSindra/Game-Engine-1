@@ -33,7 +33,23 @@ bool DevicePicker::isDeviceSuitable(VkPhysicalDevice physicalDevice, VkSurfaceKH
     tempDevice->surface = *surface;
     QueueFamilyIndices indices = QueueFamiliesManager::findQueueFamilies(tempDevice);
     
-    return indices.isComplete();
+    return indices.isComplete() && checkDeviceExtensionSupport(tempDevice);
+}
+
+bool DevicePicker::checkDeviceExtensionSupport(Device* device) {
+    uint32_t extensionCount;
+    vkEnumerateDeviceExtensionProperties(device->physicalDevice, nullptr, &extensionCount, nullptr);
+    
+    std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+    vkEnumerateDeviceExtensionProperties(device->physicalDevice, nullptr, &extensionCount, availableExtensions.data());
+    
+    std::set<std::string> requiredExtensions(device->deviceExtensions.begin(), device->deviceExtensions.end());
+    
+    for (const auto& extension : availableExtensions) {
+        requiredExtensions.erase(extension.extensionName);
+    }
+    
+    return requiredExtensions.empty();
 }
 
 void DevicePicker::createLogicalDevice(Device* device) {
@@ -48,7 +64,8 @@ void DevicePicker::createLogicalDevice(Device* device) {
     createInfo.pQueueCreateInfos = queueCreateInfos.data();
     createInfo.queueCreateInfoCount = 1;
     createInfo.pEnabledFeatures = &deviceFeatures;
-    createInfo.enabledExtensionCount = 0;
+    createInfo.enabledExtensionCount = static_cast<uint32_t>(device->deviceExtensions.size());
+    createInfo.ppEnabledExtensionNames = device->deviceExtensions.data();
     
     if (validationLayersManager.isValidationLayersEnabled()) {
         createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());

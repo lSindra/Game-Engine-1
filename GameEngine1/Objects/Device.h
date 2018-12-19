@@ -16,4 +16,8 @@ public:
     VkDevice logicalDevice;
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
     VkPhysicalDeviceProperties gpu_properties = {};
+    
+    const std::vector<const char*> deviceExtensions = {
+        VK_KHR_SWAPCHAIN_EXTENSION_NAME
+    };
 };

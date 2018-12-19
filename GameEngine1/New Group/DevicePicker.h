@@ -14,9 +14,11 @@ using namespace std;
 using namespace QueueFamilies;
 
 class DevicePicker {
+private:
+    static bool checkDeviceExtensionSupport(Device* device);
+    
 public:
     static VkDeviceQueueCreateInfo getQueueInfo(VkPhysicalDevice physicalDevice);
-    
     static void createLogicalDevice(Device* device);
     static void pickPhysicalDevice(Device* device);
     static bool isDeviceSuitable(VkPhysicalDevice physicalDevice, VkSurfaceKHR* surface);

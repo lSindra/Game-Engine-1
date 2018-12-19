@@ -8,11 +8,12 @@
 #include <vector>
 
 class Device {
-    private:
-        VkInstance instance;
-        VkSurfaceKHR surface;
-        VkQueue graphicsQueue;
-        VkDevice device;
-        VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
-        VkPhysicalDeviceProperties gpu_properties = {};
+public:
+    VkInstance instance;
+    VkSurfaceKHR surface;
+    VkQueue graphicsQueue;
+    VkQueue presentQueue;
+    VkDevice logicalDevice;
+    VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+    VkPhysicalDeviceProperties gpu_properties = {};
 };

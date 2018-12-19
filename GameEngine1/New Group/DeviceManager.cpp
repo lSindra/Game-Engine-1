@@ -37,7 +37,7 @@ void DeviceManager::createInstance() {
         createInfo.enabledLayerCount = 0;
     }
     
-    if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
+    if (vkCreateInstance(&createInfo, nullptr, &device->instance) != VK_SUCCESS) {
         throw std::runtime_error("failed to create instance!");
     }
 }
@@ -62,28 +62,29 @@ vector<const char*> DeviceManager::getRequiredExtensions() {
 
 void DeviceManager::createSurface()
 {
-    if (glfwCreateWindowSurface(instance, windowManager.window, nullptr, &surface) != VK_SUCCESS) {
+    if (glfwCreateWindowSurface(device->instance, windowManager.window, nullptr, &device->surface) != VK_SUCCESS) {
         throw std::runtime_error("failed to create window surface!");
     }
 }
 
 void DeviceManager::initDevice() {
+    device = new Device();
     windowManager.initWindow();
     createInstance();
-    validationLayersManager.setupDebugCallback(instance);
+    validationLayersManager.setupDebugCallback(device->instance);
     createSurface();
-    DevicePicker::pickPhysicalDevice(instance, &physicalDevice, &surface);
-    DevicePicker::createLogicalDevice(instance, &physicalDevice, &logicalDevice, graphicsQueue, presentQueue, &surface);
+    DevicePicker::pickPhysicalDevice(device);
+    DevicePicker::createLogicalDevice(device);
 }
 
 void DeviceManager::cleanup() {
-    vkDestroyDevice(logicalDevice, nullptr);
+    vkDestroyDevice(device->logicalDevice, nullptr);
     
     validationLayersManager.cleanup();
     
-    vkDestroySurfaceKHR(instance, surface, nullptr);
+    vkDestroySurfaceKHR(device->instance, device->surface, nullptr);
     
-    vkDestroyInstance(instance, nullptr);
+    vkDestroyInstance(device->instance, nullptr);
     
     windowManager.destroyWindow();
 }

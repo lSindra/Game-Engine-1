@@ -18,15 +18,7 @@ private:
     WindowManager windowManager =* new WindowManager();
     ValidationLayersManager validationLayersManager = ValidationLayersManager::getInstance();
     
-    VkInstance instance;
-    VkSurfaceKHR surface;
-    VkQueue graphicsQueue;
-    VkQueue presentQueue;
-    VkDevice logicalDevice;
-    VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
-    VkPhysicalDeviceProperties gpu_properties = {};
-    
-    Device device;
+    Device* device;
     
 private:
     void createInstance();

@@ -3,6 +3,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
+#include "Device.h"
 
 #include <iostream>
 #include <vector>
@@ -23,7 +24,7 @@ namespace QueueFamilies {
     
     class QueueFamiliesManager {
     public:
-        static QueueFamilyIndices findQueueFamilies(VkPhysicalDevice* physicalDevice, VkSurfaceKHR* surface);
-        static vector<VkDeviceQueueCreateInfo> getQueueInfos(VkPhysicalDevice* physicalDevice, VkSurfaceKHR* surface, QueueFamilyIndices indices);
+        static QueueFamilyIndices findQueueFamilies(Device* device);
+        static vector<VkDeviceQueueCreateInfo> getQueueInfos(QueueFamilyIndices indices);
     };
 }

@@ -2,14 +2,14 @@
 
 using namespace QueueFamilies;
 
-QueueFamilyIndices QueueFamiliesManager::findQueueFamilies(VkPhysicalDevice* physicalDevice, VkSurfaceKHR* surface) {
+QueueFamilyIndices QueueFamiliesManager::findQueueFamilies(Device* device) {
     QueueFamilyIndices indices;
     
     uint32_t queueFamilyCount = 0;
-    vkGetPhysicalDeviceQueueFamilyProperties(*physicalDevice, &queueFamilyCount, nullptr);
+    vkGetPhysicalDeviceQueueFamilyProperties(device->physicalDevice, &queueFamilyCount, nullptr);
     
     std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
-    vkGetPhysicalDeviceQueueFamilyProperties(*physicalDevice, &queueFamilyCount, queueFamilies.data());
+    vkGetPhysicalDeviceQueueFamilyProperties(device->physicalDevice, &queueFamilyCount, queueFamilies.data());
     
     int i = 0;
     for (const auto& queueFamily : queueFamilies) {
@@ -18,7 +18,7 @@ QueueFamilyIndices QueueFamiliesManager::findQueueFamilies(VkPhysicalDevice* phy
         }
         
         VkBool32 presentSupport = false;
-        vkGetPhysicalDeviceSurfaceSupportKHR(*physicalDevice, i, *surface, &presentSupport);
+        vkGetPhysicalDeviceSurfaceSupportKHR(device->physicalDevice, i, device->surface, &presentSupport);
         
         if (queueFamily.queueCount > 0 && presentSupport) {
             indices.presentFamily = i;
@@ -34,7 +34,7 @@ QueueFamilyIndices QueueFamiliesManager::findQueueFamilies(VkPhysicalDevice* phy
     return indices;
 }
 
-vector<VkDeviceQueueCreateInfo> QueueFamiliesManager::getQueueInfos(VkPhysicalDevice* physicalDevice, VkSurfaceKHR* surface, QueueFamilyIndices indices) {
+vector<VkDeviceQueueCreateInfo> QueueFamiliesManager::getQueueInfos(QueueFamilyIndices indices) {
     vector<VkDeviceQueueCreateInfo> queueCreateInfos;
     set<uint32_t> uniqueQueueFamilies = {indices.graphicsFamily.value(), indices.presentFamily.value()};
     

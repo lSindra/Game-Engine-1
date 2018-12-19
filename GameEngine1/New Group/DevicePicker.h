@@ -5,6 +5,7 @@
 #include <vulkan/vulkan.h>
 #include "QueueFamiliesManager.h"
 #include "ValidationLayersManager.h"
+#include "Device.h"
 
 #include <iostream>
 #include <vector>
@@ -16,7 +17,7 @@ class DevicePicker {
 public:
     static VkDeviceQueueCreateInfo getQueueInfo(VkPhysicalDevice physicalDevice);
     
-    static void createLogicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice, VkDevice *device, VkQueue graphicsQueue, VkQueue presentQueue, VkSurfaceKHR* surface);
-    static void pickPhysicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice, VkSurfaceKHR* surface);
+    static void createLogicalDevice(Device* device);
+    static void pickPhysicalDevice(Device* device);
     static bool isDeviceSuitable(VkPhysicalDevice physicalDevice, VkSurfaceKHR* surface);
 };

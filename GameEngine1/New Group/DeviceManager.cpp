@@ -65,7 +65,7 @@ void DeviceManager::initDevice() {
     createInstance();
     validationLayersManager.setupDebugCallback(instance);
     DevicePicker::pickPhysicalDevice(instance, &physicalDevice);
-    DevicePicker::createLogicalDevice(instance, &physicalDevice, device, graphicsQueue);
+    DevicePicker::createLogicalDevice(instance, &physicalDevice, &device, graphicsQueue);
 }
 
 void DeviceManager::cleanup() {

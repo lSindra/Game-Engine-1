@@ -16,8 +16,9 @@ class DeviceManager {
 private:
     WindowManager windowManager =* new WindowManager();
     ValidationLayersManager validationLayersManager = ValidationLayersManager::getInstance();
-    VkInstance instance;
     
+    VkInstance instance;
+    VkSurfaceKHR surface;
     VkQueue graphicsQueue;
     VkDevice device;
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;

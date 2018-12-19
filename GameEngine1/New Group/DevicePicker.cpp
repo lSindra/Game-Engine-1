@@ -34,7 +34,7 @@ bool DevicePicker::isDeviceSuitable(VkPhysicalDevice physicalDevice) {
 }
 
 //error here
-void DevicePicker::createLogicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice, VkDevice device, VkQueue graphicsQueue) {
+void DevicePicker::createLogicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice, VkDevice *device, VkQueue graphicsQueue) {
     ValidationLayersManager validationLayersManager = ValidationLayersManager::getInstance();
     VkDeviceQueueCreateInfo queueCreateInfo = QueueFamiliesManager::getQueueInfo(physicalDevice);
     
@@ -57,9 +57,9 @@ void DevicePicker::createLogicalDevice(VkInstance instance, VkPhysicalDevice* ph
         createInfo.enabledLayerCount = 0;
     }
     
-    if (vkCreateDevice(*physicalDevice, &createInfo, nullptr, &device) != VK_SUCCESS) {
+    if (vkCreateDevice(*physicalDevice, &createInfo, nullptr, device) != VK_SUCCESS) {
         throw std::runtime_error("failed to create logical device!");
     }
     
-    vkGetDeviceQueue(device, queueCreateInfo.queueFamilyIndex, 0, &graphicsQueue);
+    vkGetDeviceQueue(*device, queueCreateInfo.queueFamilyIndex, 0, &graphicsQueue);
 }

@@ -7,10 +7,13 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
+
 struct SwapChain {
     VkSwapchainKHR swapChainKHR;
     
-    std::vector<VkImage> swapChainImages;
+    vector<VkImageView> swapChainImageViews;
+    vector<VkImage> swapChainImages;
     VkFormat swapChainImageFormat;
     VkExtent2D swapChainExtent;
 };

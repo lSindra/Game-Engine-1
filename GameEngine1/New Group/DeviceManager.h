@@ -6,6 +6,7 @@
 #include "WindowManager.h"
 #include "ValidationLayersManager.h"
 #include "DevicePicker.h"
+#include "Renderer.h"
 #include "Device.h"
 
 #include <iostream>

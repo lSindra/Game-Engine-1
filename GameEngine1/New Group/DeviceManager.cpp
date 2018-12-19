@@ -76,10 +76,19 @@ void DeviceManager::initDevice() {
     DevicePicker::pickPhysicalDevice(device);
     DevicePicker::createLogicalDevice(device);
     DevicePicker::createSwapChain(device);
+    Renderer::createImageViews(device);
+}
+
+static void cleanupSwapChain(Device *device) {
+    for (auto imageView : device->swapChain.swapChainImageViews) {
+        vkDestroyImageView(device->logicalDevice, imageView, nullptr);
+    }
+    
+    vkDestroySwapchainKHR(device->logicalDevice, device->swapChain.swapChainKHR, nullptr);
 }
 
 void DeviceManager::cleanup() {
-    vkDestroySwapchainKHR(device->logicalDevice, device->swapChain.swapChainKHR, nullptr);
+    cleanupSwapChain(device);
     
     vkDestroyDevice(device->logicalDevice, nullptr);
     

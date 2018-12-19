@@ -4,6 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
 
+#include <iostream>
+
 class WindowManager {
 private:
     int WIDTH = 800;

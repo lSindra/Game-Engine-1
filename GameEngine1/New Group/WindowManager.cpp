@@ -14,7 +14,7 @@ void WindowManager::initWindow() {
     if (!window)
     {
         glfwTerminate();
-//        exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 }
 

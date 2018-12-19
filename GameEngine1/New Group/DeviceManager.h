@@ -6,6 +6,7 @@
 #include "WindowManager.h"
 #include "ValidationLayersManager.h"
 #include "DevicePicker.h"
+#include "Device.h"
 
 #include <iostream>
 #include <vector>
@@ -20,12 +21,16 @@ private:
     VkInstance instance;
     VkSurfaceKHR surface;
     VkQueue graphicsQueue;
-    VkDevice device;
+    VkQueue presentQueue;
+    VkDevice logicalDevice;
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
     VkPhysicalDeviceProperties gpu_properties = {};
     
+    Device device;
+    
 private:
     void createInstance();
+    void createSurface();
     vector<const char*> getRequiredExtensions();
     VkInstanceCreateInfo instanceCreateInfo();
     

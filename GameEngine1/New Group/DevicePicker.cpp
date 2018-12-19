@@ -4,7 +4,7 @@ const vector<const char*> validationLayers = {
     "VK_LAYER_LUNARG_standard_validation"
 };
 
-void DevicePicker::pickPhysicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice) {
+void DevicePicker::pickPhysicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice, VkSurfaceKHR* surface) {
     uint32_t deviceCount = 0;
     vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
     
@@ -16,7 +16,7 @@ void DevicePicker::pickPhysicalDevice(VkInstance instance, VkPhysicalDevice* phy
     vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
     
     for (const auto& device : devices) {
-        if (isDeviceSuitable(device)) {
+        if (isDeviceSuitable(device, surface)) {
             *physicalDevice = device;
             break;
         }
@@ -27,27 +27,24 @@ void DevicePicker::pickPhysicalDevice(VkInstance instance, VkPhysicalDevice* phy
     }
 }
 
-bool DevicePicker::isDeviceSuitable(VkPhysicalDevice physicalDevice) {
-    QueueFamilyIndices indices = QueueFamiliesManager::findQueueFamilies(&physicalDevice);
+bool DevicePicker::isDeviceSuitable(VkPhysicalDevice physicalDevice, VkSurfaceKHR* surface) {
+    QueueFamilyIndices indices = QueueFamiliesManager::findQueueFamilies(&physicalDevice, surface);
     
     return indices.isComplete();
 }
 
-//error here
-void DevicePicker::createLogicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice, VkDevice *device, VkQueue graphicsQueue) {
+void DevicePicker::createLogicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice, VkDevice *device, VkQueue graphicsQueue, VkQueue presentQueue, VkSurfaceKHR* surface) {
     ValidationLayersManager validationLayersManager = ValidationLayersManager::getInstance();
-    VkDeviceQueueCreateInfo queueCreateInfo = QueueFamiliesManager::getQueueInfo(physicalDevice);
+    QueueFamilyIndices indices = QueueFamiliesManager::findQueueFamilies(physicalDevice, surface);
+    vector<VkDeviceQueueCreateInfo> queueCreateInfos = QueueFamiliesManager::getQueueInfos(physicalDevice, surface, indices);
     
     VkPhysicalDeviceFeatures deviceFeatures = {};
     
     VkDeviceCreateInfo createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-    
-    createInfo.pQueueCreateInfos = &queueCreateInfo;
+    createInfo.pQueueCreateInfos = queueCreateInfos.data();
     createInfo.queueCreateInfoCount = 1;
-    
     createInfo.pEnabledFeatures = &deviceFeatures;
-    
     createInfo.enabledExtensionCount = 0;
     
     if (validationLayersManager.isValidationLayersEnabled()) {
@@ -61,5 +58,6 @@ void DevicePicker::createLogicalDevice(VkInstance instance, VkPhysicalDevice* ph
         throw std::runtime_error("failed to create logical device!");
     }
     
-    vkGetDeviceQueue(*device, queueCreateInfo.queueFamilyIndex, 0, &graphicsQueue);
+    vkGetDeviceQueue(*device, indices.graphicsFamily.value(), 0, &graphicsQueue);
+    vkGetDeviceQueue(*device, indices.presentFamily.value(), 0, &presentQueue);
 }

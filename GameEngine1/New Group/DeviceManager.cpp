@@ -60,18 +60,28 @@ vector<const char*> DeviceManager::getRequiredExtensions() {
     return extensions;
 }
 
+void DeviceManager::createSurface()
+{
+    if (glfwCreateWindowSurface(instance, windowManager.window, nullptr, &surface) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create window surface!");
+    }
+}
+
 void DeviceManager::initDevice() {
     windowManager.initWindow();
     createInstance();
     validationLayersManager.setupDebugCallback(instance);
-    DevicePicker::pickPhysicalDevice(instance, &physicalDevice);
-    DevicePicker::createLogicalDevice(instance, &physicalDevice, &device, graphicsQueue);
+    createSurface();
+    DevicePicker::pickPhysicalDevice(instance, &physicalDevice, &surface);
+    DevicePicker::createLogicalDevice(instance, &physicalDevice, &logicalDevice, graphicsQueue, presentQueue, &surface);
 }
 
 void DeviceManager::cleanup() {
-    vkDestroyDevice(device, nullptr);
+    vkDestroyDevice(logicalDevice, nullptr);
     
     validationLayersManager.cleanup();
+    
+    vkDestroySurfaceKHR(instance, surface, nullptr);
     
     vkDestroyInstance(instance, nullptr);
     

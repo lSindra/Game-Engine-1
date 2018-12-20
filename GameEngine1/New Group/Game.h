@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
 #include "DeviceManager.h"
+#include "WindowManager.h"
 
 #include <iostream>
 

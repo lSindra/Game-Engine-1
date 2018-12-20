@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
 #include "Device.h"
+#include "SwapChainManager.h"
 
 using namespace std;
 
@@ -15,6 +16,9 @@ private:
     vector<VkFence> inFlightFences;
     vector<VkSemaphore> imageAvailableSemaphores;
     vector<VkSemaphore> renderFinishedSemaphores;
+    
+public:
+    bool framebufferResized = false;
     
 public:
     void createSemaphores(Device* device);

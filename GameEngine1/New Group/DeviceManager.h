@@ -17,8 +17,8 @@ using namespace std;
 
 class DeviceManager {
 private:
-    WindowManager windowManager =* new WindowManager();
-    ValidationLayersManager validationLayersManager = ValidationLayersManager::getInstance();
+    WindowManager* windowManager = WindowManager::getInstance();
+    ValidationLayersManager* validationLayersManager = ValidationLayersManager::getInstance();
     
     Device* device;
     
@@ -29,8 +29,8 @@ private:
     VkInstanceCreateInfo instanceCreateInfo();
     
 public:
-    GLFWwindow* getWindow();
     Device* getDevice();
     void initDevice();
+    void cleanupSwapChain();
     void cleanup();
 };

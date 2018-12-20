@@ -1,5 +1,13 @@
 #include "ValidationLayersManager.h"
 
+ValidationLayersManager* ValidationLayersManager::getInstance() {
+    static ValidationLayersManager manager;
+    return &manager;
+}
+
+ValidationLayersManager::ValidationLayersManager()
+{}
+
 bool ValidationLayersManager::checkValidationLayerSupport() {
     uint32_t layerCount;
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);

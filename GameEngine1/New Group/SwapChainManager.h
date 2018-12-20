@@ -6,6 +6,7 @@
 #include "Device.h"
 #include "QueueFamiliesManager.h"
 #include "GraphicsPipeline.h"
+#include "WindowManager.h"
 
 #include <vector>
 
@@ -22,7 +23,9 @@ public:
     
 public:
     static void createSwapChain(Device* device);
+    static void recreateSwapChain(Device* device);
     static SwapChainSupportDetails querySwapChainSupport(Device* device);
+    static void cleanup(Device* device);
     
 private:
     static void initSwapChain(Device* device);

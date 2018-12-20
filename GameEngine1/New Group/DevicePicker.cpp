@@ -61,7 +61,7 @@ bool DevicePicker::checkDeviceExtensionSupport(Device* device) {
 }
 
 void DevicePicker::createLogicalDevice(Device* device) {
-    ValidationLayersManager validationLayersManager = ValidationLayersManager::getInstance();
+    ValidationLayersManager* validationLayersManager = ValidationLayersManager::getInstance();
     QueueFamilyIndices indices = QueueFamiliesManager::findQueueFamilies(device);
     vector<VkDeviceQueueCreateInfo> queueCreateInfos = QueueFamiliesManager::getQueueInfos(indices);
     
@@ -75,7 +75,7 @@ void DevicePicker::createLogicalDevice(Device* device) {
     createInfo.enabledExtensionCount = static_cast<uint32_t>(device->deviceExtensions.size());
     createInfo.ppEnabledExtensionNames = device->deviceExtensions.data();
     
-    if (validationLayersManager.isValidationLayersEnabled()) {
+    if (validationLayersManager->isValidationLayersEnabled()) {
         createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
         createInfo.ppEnabledLayerNames = validationLayers.data();
     } else {

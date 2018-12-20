@@ -66,6 +66,26 @@ void SwapChainManager::createSwapChain(Device *device) {
     SwapChainManager::createCommandBuffers(device);
 }
 
+void SwapChainManager::recreateSwapChain(Device *device) {
+    int width = 0, height = 0;
+    while (width == 0 || height == 0) {
+        glfwGetFramebufferSize(WindowManager::getInstance()->window, &width, &height);
+        glfwWaitEvents();
+    }
+    
+    vkDeviceWaitIdle(device->logicalDevice);
+    
+    cleanup(device);
+    
+    SwapChainManager::initSwapChain(device);
+    SwapChainManager::createImageViews(device);
+    SwapChainManager::createRenderPass(device);
+    GraphicsPipeline::createGraphicsPipeline(device);
+    SwapChainManager::createFramebuffers(device);
+    SwapChainManager::createCommandPool(device);
+    SwapChainManager::createCommandBuffers(device);
+}
+
 SwapChainManager::SwapChainSupportDetails SwapChainManager::querySwapChainSupport(Device* device) {
     SwapChainSupportDetails details;
     
@@ -119,18 +139,16 @@ VkPresentModeKHR SwapChainManager::chooseSwapPresentMode(const std::vector<VkPre
 }
 
 VkExtent2D SwapChainManager::chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities, Device* device) {
-    //temp
-    const int WIDTH = 800;
-    const int HEIGHT = 600;
-    
     if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
         return capabilities.currentExtent;
     } else {
-        VkExtent2D actualExtent = {WIDTH, HEIGHT};
+        int width, height;
+        glfwGetFramebufferSize(WindowManager::getInstance()->window, &width, &height);
         
-        actualExtent.width = std::max(capabilities.minImageExtent.width, std::min(capabilities.maxImageExtent.width, actualExtent.width));
-        actualExtent.height = std::max(capabilities.minImageExtent.height, std::min(capabilities.maxImageExtent.height, actualExtent.height));
-        
+        VkExtent2D actualExtent = {
+            static_cast<uint32_t>(width),
+            static_cast<uint32_t>(height)
+        };
         return actualExtent;
     }
 }
@@ -281,4 +299,22 @@ void SwapChainManager::createCommandBuffers(Device *device) {
             throw std::runtime_error("failed to record command buffer!");
         }
     }
+}
+
+void SwapChainManager::cleanup(Device* device) {
+    for (size_t i = 0; i < device->swapChain.swapChainFramebuffers.size(); i++) {
+        vkDestroyFramebuffer(device->logicalDevice, device->swapChain.swapChainFramebuffers[i], nullptr);
+    }
+    
+    vkFreeCommandBuffers(device->logicalDevice, device->commandPool, static_cast<uint32_t>(device->commandBuffers.size()), device->commandBuffers.data());
+    
+    vkDestroyPipeline(device->logicalDevice, device->graphicsPipeline, nullptr);
+    vkDestroyPipelineLayout(device->logicalDevice, device->pipelineLayout, nullptr);
+    vkDestroyRenderPass(device->logicalDevice, device->renderPass, nullptr);
+    
+    for (size_t i = 0; i < device->swapChain.swapChainImageViews.size(); i++) {
+        vkDestroyImageView(device->logicalDevice, device->swapChain.swapChainImageViews[i], nullptr);
+    }
+    
+    vkDestroySwapchainKHR(device->logicalDevice, device->swapChain.swapChainKHR, nullptr);
 }

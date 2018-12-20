@@ -16,8 +16,7 @@ void Renderer::createSemaphores(Device *device) {
         if (vkCreateSemaphore(device->logicalDevice, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]) != VK_SUCCESS ||
             vkCreateSemaphore(device->logicalDevice, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]) != VK_SUCCESS ||
             vkCreateFence(device->logicalDevice, &fenceInfo, nullptr, &inFlightFences[i]) != VK_SUCCESS) {
-            
-            
+                
             throw std::runtime_error("failed to create synchronization objects for a frame!");
         }
     }
@@ -25,11 +24,17 @@ void Renderer::createSemaphores(Device *device) {
 
 void Renderer::drawFrame(Device *device) {
     vkWaitForFences(device->logicalDevice, 1, &inFlightFences[currentFrame], VK_TRUE, std::numeric_limits<uint64_t>::max());
-    vkResetFences(device->logicalDevice, 1, &inFlightFences[currentFrame]);
-
+    
     uint32_t imageIndex;
-    vkAcquireNextImageKHR(device->logicalDevice, device->swapChain.swapChainKHR, std::numeric_limits<uint64_t>::max(), imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &imageIndex);
-
+    VkResult result = vkAcquireNextImageKHR(device->logicalDevice, device->swapChain.swapChainKHR, std::numeric_limits<uint64_t>::max(), imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &imageIndex);
+    
+    if (result == VK_ERROR_OUT_OF_DATE_KHR) {
+        SwapChainManager::recreateSwapChain(device);
+        return;
+    } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+        throw std::runtime_error("failed to acquire swap chain image!");
+    }
+    
     VkSubmitInfo submitInfo = {};
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
     
@@ -45,6 +50,8 @@ void Renderer::drawFrame(Device *device) {
     submitInfo.signalSemaphoreCount = 1;
     submitInfo.pSignalSemaphores = signalSemaphores;
     
+    vkResetFences(device->logicalDevice, 1, &inFlightFences[currentFrame]);
+
     if (vkQueueSubmit(device->graphicsQueue, 1, &submitInfo, inFlightFences[currentFrame]) != VK_SUCCESS) {
         throw std::runtime_error("failed to submit draw command buffer!");
     }
@@ -60,7 +67,14 @@ void Renderer::drawFrame(Device *device) {
     presentInfo.pSwapchains = swapChains;
     presentInfo.pImageIndices = &imageIndex;
     
-    vkQueuePresentKHR(device->presentQueue, &presentInfo);
+    result = vkQueuePresentKHR(device->presentQueue, &presentInfo);
+    
+    if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || framebufferResized) {
+        framebufferResized = false;
+        SwapChainManager::recreateSwapChain(device);
+    } else if (result != VK_SUCCESS) {
+        throw std::runtime_error("failed to present swap chain image!");
+    }
     
     currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 }

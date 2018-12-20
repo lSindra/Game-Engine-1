@@ -1,5 +1,10 @@
 #include "WindowManager.h"
 
+static void framebufferResizeCallback(GLFWwindow* window, int width, int height) {
+    auto renderer = reinterpret_cast<Renderer*>(glfwGetWindowUserPointer(window));
+    renderer->framebufferResized = true;
+}
+
 void WindowManager::initWindow() {
     glfwInit();
     
@@ -10,6 +15,8 @@ void WindowManager::initWindow() {
     glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
     
     window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", nullptr, nullptr);
+    glfwSetWindowUserPointer(window, this);
+    glfwSetFramebufferSizeCallback(window, framebufferResizeCallback);
     
     if (!window)
     {
@@ -23,3 +30,13 @@ void WindowManager::destroyWindow() {
     
     glfwTerminate();
 }
+
+WindowManager* WindowManager::getInstance()
+{
+    static WindowManager instance;
+    
+    return &instance;
+}
+
+WindowManager::WindowManager()
+{}

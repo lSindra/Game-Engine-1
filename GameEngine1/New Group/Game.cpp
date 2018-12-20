@@ -13,7 +13,7 @@ void Game::initVulkan(){
 }
 
 void Game::mainLoop(){
-    while (!glfwWindowShouldClose(world_device->getWindow())) {
+    while (!glfwWindowShouldClose(WindowManager::getInstance()->window)) {
         glfwPollEvents();
         renderer.drawFrame(world_device->getDevice());
     }
@@ -21,6 +21,7 @@ void Game::mainLoop(){
 }
 
 void Game::cleanup(){
+    world_device->cleanupSwapChain();
     renderer.cleanup(world_device->getDevice());
     world_device->cleanup();
 }

@@ -16,7 +16,7 @@ static VkApplicationInfo instanceAppInfo() {
 }
 
 void DeviceManager::createInstance() {
-    if (validationLayersManager.isValidationLayersEnabled() && !validationLayersManager.checkValidationLayerSupport()) {
+    if (validationLayersManager->isValidationLayersEnabled() && !validationLayersManager->checkValidationLayerSupport()) {
         throw std::runtime_error("validation layers requested, but not available!");
     }
     
@@ -30,7 +30,7 @@ void DeviceManager::createInstance() {
     createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
     createInfo.ppEnabledExtensionNames = extensions.data();
     
-    if (validationLayersManager.isValidationLayersEnabled()) {
+    if (validationLayersManager->isValidationLayersEnabled()) {
         createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
         createInfo.ppEnabledLayerNames = validationLayers.data();
     } else {
@@ -40,10 +40,6 @@ void DeviceManager::createInstance() {
     if (vkCreateInstance(&createInfo, nullptr, &device->instance) != VK_SUCCESS) {
         throw std::runtime_error("failed to create instance!");
     }
-}
-
-GLFWwindow* DeviceManager::getWindow() {
-    return windowManager.window;
 }
 
 Device* DeviceManager::getDevice() {
@@ -57,7 +53,7 @@ vector<const char*> DeviceManager::getRequiredExtensions() {
     
     vector<const char*> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
     
-    if (validationLayersManager.isValidationLayersEnabled()) {
+    if (validationLayersManager->isValidationLayersEnabled()) {
         extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
     }
     
@@ -66,53 +62,35 @@ vector<const char*> DeviceManager::getRequiredExtensions() {
 
 void DeviceManager::createSurface()
 {
-    if (glfwCreateWindowSurface(device->instance, windowManager.window, nullptr, &device->surface) != VK_SUCCESS) {
+    if (glfwCreateWindowSurface(device->instance, windowManager->window, nullptr, &device->surface) != VK_SUCCESS) {
         throw std::runtime_error("failed to create window surface!");
     }
 }
 
 void DeviceManager::initDevice() {
     device = new Device();
-    windowManager.initWindow();
+    windowManager->initWindow();
     createInstance();
-    validationLayersManager.setupDebugCallback(device->instance);
+    validationLayersManager->setupDebugCallback(device->instance);
     createSurface();
     DevicePicker::pickPhysicalDevice(device);
     DevicePicker::createLogicalDevice(device);
     SwapChainManager::createSwapChain(device);
 }
 
-static void cleanupSwapChainFrameBuffers(Device* device) {
-    for (auto framebuffer : device->swapChain.swapChainFramebuffers) {
-        vkDestroyFramebuffer(device->logicalDevice, framebuffer, nullptr);
-    }
-}
-
-static void cleanupSwapChain(Device *device) {
-    for (auto imageView : device->swapChain.swapChainImageViews) {
-        vkDestroyImageView(device->logicalDevice, imageView, nullptr);
-    }
-    
-    vkDestroySwapchainKHR(device->logicalDevice, device->swapChain.swapChainKHR, nullptr);
+void DeviceManager::cleanupSwapChain() {
+    SwapChainManager::cleanup(device);
 }
 
 void DeviceManager::cleanup() {
     vkDestroyCommandPool(device->logicalDevice, device->commandPool, nullptr);
-
-    cleanupSwapChainFrameBuffers(device);
     
-    vkDestroyPipeline(device->logicalDevice, device->graphicsPipeline, nullptr);
-    vkDestroyPipelineLayout(device->logicalDevice, device->pipelineLayout, nullptr);
-    vkDestroyRenderPass(device->logicalDevice, device->renderPass, nullptr);
-    
-    cleanupSwapChain(device);
     vkDestroyDevice(device->logicalDevice, nullptr);
     
-    validationLayersManager.cleanup();
+    validationLayersManager->cleanup();
     
     vkDestroySurfaceKHR(device->instance, device->surface, nullptr);
-    
     vkDestroyInstance(device->instance, nullptr);
     
-    windowManager.destroyWindow();
+    windowManager->destroyWindow();
 }

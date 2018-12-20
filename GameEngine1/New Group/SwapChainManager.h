@@ -4,9 +4,12 @@
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
 #include "Device.h"
+#include "QueueFamiliesManager.h"
+#include "GraphicsPipeline.h"
 
 #include <vector>
 
+using namespace QueueFamilies;
 using namespace std;
 
 class SwapChainManager {
@@ -18,9 +21,17 @@ public:
     };
     
 public:
+    static void createSwapChain(Device* device);
     static SwapChainSupportDetails querySwapChainSupport(Device* device);
+    
+private:
+    static void initSwapChain(Device* device);
+    static void createImageViews(Device* device);
+    static void createRenderPass(Device* device);
+    static void createCommandPool(Device* device);
+    static void createCommandBuffers(Device* device);
+    static void createFramebuffers(Device* device);
     static VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
     static VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR> availablePresentModes);
     static VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities, Device* device);
-    static void createFramebuffers(Device* device);
 };

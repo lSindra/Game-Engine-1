@@ -22,6 +22,5 @@ public:
     static VkDeviceQueueCreateInfo getQueueInfo(VkPhysicalDevice physicalDevice);
     static void createLogicalDevice(Device* device);
     static void pickPhysicalDevice(Device* device);
-    static void createSwapChain(Device* device);
     static bool isDeviceSuitable(VkPhysicalDevice physicalDevice, VkSurfaceKHR* surface);
 };

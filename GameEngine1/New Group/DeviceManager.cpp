@@ -79,13 +79,7 @@ void DeviceManager::initDevice() {
     createSurface();
     DevicePicker::pickPhysicalDevice(device);
     DevicePicker::createLogicalDevice(device);
-    DevicePicker::createSwapChain(device);
-    Renderer::createImageViews(device);
-    Renderer::createRenderPass(device);
-    GraphicsPipeline::createGraphicsPipeline(device);
-    SwapChainManager::createFramebuffers(device);
-    Renderer::createCommandPool(device);
-    Renderer::createCommandBuffers(device);
+    SwapChainManager::createSwapChain(device);
 }
 
 static void cleanupSwapChainFrameBuffers(Device* device) {

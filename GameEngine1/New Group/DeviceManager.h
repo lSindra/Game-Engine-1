@@ -8,7 +8,6 @@
 #include "DevicePicker.h"
 #include "Renderer.h"
 #include "Device.h"
-#include "GraphicsPipeline.h"
 #include "SwapChainManager.h"
 
 #include <iostream>

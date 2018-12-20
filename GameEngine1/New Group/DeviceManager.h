@@ -9,6 +9,7 @@
 #include "Renderer.h"
 #include "Device.h"
 #include "GraphicsPipeline.h"
+#include "SwapChainManager.h"
 
 #include <iostream>
 #include <vector>
@@ -30,6 +31,7 @@ private:
     
 public:
     GLFWwindow* getWindow();
+    Device* getDevice();
     void initDevice();
     void cleanup();
 };

@@ -46,6 +46,10 @@ GLFWwindow* DeviceManager::getWindow() {
     return windowManager.window;
 }
 
+Device* DeviceManager::getDevice() {
+    return device;
+}
+
 vector<const char*> DeviceManager::getRequiredExtensions() {
     uint32_t glfwExtensionCount = 0;
     const char** glfwExtensions;
@@ -79,6 +83,15 @@ void DeviceManager::initDevice() {
     Renderer::createImageViews(device);
     Renderer::createRenderPass(device);
     GraphicsPipeline::createGraphicsPipeline(device);
+    SwapChainManager::createFramebuffers(device);
+    Renderer::createCommandPool(device);
+    Renderer::createCommandBuffers(device);
+}
+
+static void cleanupSwapChainFrameBuffers(Device* device) {
+    for (auto framebuffer : device->swapChain.swapChainFramebuffers) {
+        vkDestroyFramebuffer(device->logicalDevice, framebuffer, nullptr);
+    }
 }
 
 static void cleanupSwapChain(Device *device) {
@@ -90,6 +103,10 @@ static void cleanupSwapChain(Device *device) {
 }
 
 void DeviceManager::cleanup() {
+    vkDestroyCommandPool(device->logicalDevice, device->commandPool, nullptr);
+
+    cleanupSwapChainFrameBuffers(device);
+    
     vkDestroyPipeline(device->logicalDevice, device->graphicsPipeline, nullptr);
     vkDestroyPipelineLayout(device->logicalDevice, device->pipelineLayout, nullptr);
     vkDestroyRenderPass(device->logicalDevice, device->renderPass, nullptr);

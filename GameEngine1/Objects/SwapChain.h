@@ -11,7 +11,7 @@ using namespace std;
 
 struct SwapChain {
     VkSwapchainKHR swapChainKHR;
-    
+    vector<VkFramebuffer> swapChainFramebuffers;
     vector<VkImageView> swapChainImageViews;
     vector<VkImage> swapChainImages;
     VkFormat swapChainImageFormat;

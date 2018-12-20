@@ -68,3 +68,26 @@ VkExtent2D SwapChainManager::chooseSwapExtent(const VkSurfaceCapabilitiesKHR& ca
         return actualExtent;
     }
 }
+
+void SwapChainManager::createFramebuffers(Device* device) {
+    device->swapChain.swapChainFramebuffers.resize(device->swapChain.swapChainImageViews.size());
+    
+    for (size_t i = 0; i < device->swapChain.swapChainImageViews.size(); i++) {
+        VkImageView attachments[] = {
+            device->swapChain.swapChainImageViews[i]
+        };
+        
+        VkFramebufferCreateInfo framebufferInfo = {};
+        framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+        framebufferInfo.renderPass = device->renderPass;
+        framebufferInfo.attachmentCount = 1;
+        framebufferInfo.pAttachments = attachments;
+        framebufferInfo.width = device->swapChain.swapChainExtent.width;
+        framebufferInfo.height = device->swapChain.swapChainExtent.height;
+        framebufferInfo.layers = 1;
+        
+        if (vkCreateFramebuffer(device->logicalDevice, &framebufferInfo, nullptr, &device->swapChain.swapChainFramebuffers[i]) != VK_SUCCESS) {
+            throw std::runtime_error("failed to create framebuffer!");
+        }
+    }
+}

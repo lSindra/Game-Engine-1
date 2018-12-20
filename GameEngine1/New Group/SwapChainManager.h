@@ -22,4 +22,5 @@ public:
     static VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
     static VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR> availablePresentModes);
     static VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities, Device* device);
+    static void createFramebuffers(Device* device);
 };

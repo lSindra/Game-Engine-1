@@ -56,3 +56,65 @@ void Renderer::createRenderPass(Device *device) {
         throw std::runtime_error("failed to create render pass!");
     }
 }
+
+void Renderer::createCommandPool(Device *device) {
+    QueueFamilyIndices queueFamilyIndices = QueueFamiliesManager::findQueueFamilies(device);
+    
+    VkCommandPoolCreateInfo poolInfo = {};
+    poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
+    poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily.value();
+    poolInfo.flags = 0; // Optional
+    
+    if (vkCreateCommandPool(device->logicalDevice, &poolInfo, nullptr, &device->commandPool) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create command pool!");
+    }
+}
+
+void Renderer::createCommandBuffers(Device *device) {
+    device->commandBuffers.resize(device->swapChain.swapChainFramebuffers.size());
+    
+    VkCommandBufferAllocateInfo allocInfo = {};
+    allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    allocInfo.commandPool = device->commandPool;
+    allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    allocInfo.commandBufferCount = (uint32_t) device->commandBuffers.size();
+    
+    if (vkAllocateCommandBuffers(device->logicalDevice, &allocInfo, device->commandBuffers.data()) != VK_SUCCESS) {
+        throw std::runtime_error("failed to allocate command buffers!");
+    }
+    
+    for (size_t i = 0; i < device->commandBuffers.size(); i++) {
+        VkCommandBufferBeginInfo beginInfo = {};
+        beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+        beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
+        beginInfo.pInheritanceInfo = nullptr; // Optional
+        
+        if (vkBeginCommandBuffer(device->commandBuffers[i], &beginInfo) != VK_SUCCESS) {
+            throw std::runtime_error("failed to begin recording command buffer!");
+        }
+        
+        VkRenderPassBeginInfo renderPassInfo = {};
+        renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+        renderPassInfo.renderPass = device->renderPass;
+        renderPassInfo.framebuffer = device->swapChain.swapChainFramebuffers[i];
+        renderPassInfo.renderArea.offset = {0, 0};
+        renderPassInfo.renderArea.extent = device->swapChain.swapChainExtent;
+        
+        VkClearValue clearColor = {0.0f, 0.0f, 0.0f, 1.0f};
+        renderPassInfo.clearValueCount = 1;
+        renderPassInfo.pClearValues = &clearColor;
+        
+        vkCmdBeginRenderPass(device->commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+        vkCmdBindPipeline(device->commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, device->graphicsPipeline);
+        vkCmdDraw(device->commandBuffers[i], 3, 1, 0, 0);
+        vkCmdEndRenderPass(device->commandBuffers[i]);
+        
+        if (vkEndCommandBuffer(device->commandBuffers[i]) != VK_SUCCESS) {
+            throw std::runtime_error("failed to record command buffer!");
+        }
+    }
+}
+
+void Renderer::drawFrame(Device *device) {
+    
+}

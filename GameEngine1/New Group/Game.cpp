@@ -14,6 +14,7 @@ void Game::initVulkan(){
 void Game::mainLoop(){
     while (!glfwWindowShouldClose(world_device->getWindow())) {
         glfwPollEvents();
+        Renderer::drawFrame(world_device->getDevice());
     }}
 
 void Game::cleanup(){

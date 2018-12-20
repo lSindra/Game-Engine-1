@@ -16,7 +16,9 @@ void Game::mainLoop(){
     while (!glfwWindowShouldClose(world_device->getWindow())) {
         glfwPollEvents();
         renderer.drawFrame(world_device->getDevice());
-    }}
+    }
+    vkDeviceWaitIdle(world_device->getDevice()->logicalDevice);
+}
 
 void Game::cleanup(){
     renderer.cleanup(world_device->getDevice());

@@ -7,11 +7,16 @@
 #include "QueueFamiliesManager.h"
 
 using namespace QueueFamilies;
+using namespace std;
 
 class Renderer {
 private:
-    VkSemaphore imageAvailableSemaphore;
-    VkSemaphore renderFinishedSemaphore;
+    const int MAX_FRAMES_IN_FLIGHT = 2;
+
+    size_t currentFrame = 0;
+    vector<VkFence> inFlightFences;
+    vector<VkSemaphore> imageAvailableSemaphores;
+    vector<VkSemaphore> renderFinishedSemaphores;
     
 public:
     static void createImageViews(Device* device);

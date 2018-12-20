@@ -1,10 +1,15 @@
 #pragma once
 
-#include <stdio.h>
+#include <iostream>
+#include <fstream>
 #include <vector>
+#include <stdio.h>
+
+using namespace std;
 
 class FileReader
 {
-    public: static std::vector<char> readFile(const std::string& filename);
+public:
+    static vector<char> readFile(const string& filename);
 };
 

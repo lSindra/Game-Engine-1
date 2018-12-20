@@ -1,18 +1,14 @@
 #include "FileReader.h"
 
-#include <iostream>
-#include <fstream>
-#include <vector>
-
-std::vector<char> FileReader::readFile(const std::string& filename) {
-    std::ifstream file(filename, std::ios::ate | std::ios::binary);
+vector<char> FileReader::readFile(const string& filename) {
+    ifstream file(filename, ios::ate | ios::binary);
 
     if (!file.is_open()) {
-        throw std::runtime_error("failed to open file: " + filename);
+        throw runtime_error("failed to open file: " + filename);
     }
     
     size_t fileSize = (size_t) file.tellg();
-    std::vector<char> buffer(fileSize);
+    vector<char> buffer(fileSize);
     
     file.seekg(0);
     file.read(buffer.data(), fileSize);

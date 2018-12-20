@@ -120,8 +120,8 @@
 		2E378A3B21C3D6E200A53B5C /* FileLoader */ = {
 			isa = PBXGroup;
 			children = (
-				2E378A3D21C3D6FF00A53B5C /* FileReader.h */,
 				2E378A3F21C3DD1400A53B5C /* FileReader.cpp */,
+				2E378A3D21C3D6FF00A53B5C /* FileReader.h */,
 			);
 			path = FileLoader;
 			sourceTree = "<group>";

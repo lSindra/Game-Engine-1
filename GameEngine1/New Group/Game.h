@@ -13,6 +13,7 @@ class Game {
     
 private:
     shared_ptr<DeviceManager> world_device = nullptr;
+    Renderer renderer =* new Renderer();
     
 public:
     void run();

@@ -9,14 +9,16 @@ void Game::run() {
 void Game::initVulkan(){
     world_device = std::make_shared<DeviceManager>();
     world_device->initDevice();
+    renderer.createSemaphores(world_device->getDevice());
 }
 
 void Game::mainLoop(){
     while (!glfwWindowShouldClose(world_device->getWindow())) {
         glfwPollEvents();
-        Renderer::drawFrame(world_device->getDevice());
+        renderer.drawFrame(world_device->getDevice());
     }}
 
 void Game::cleanup(){
+    renderer.cleanup(world_device->getDevice());
     world_device->cleanup();
 }

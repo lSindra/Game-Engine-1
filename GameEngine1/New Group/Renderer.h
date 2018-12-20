@@ -9,10 +9,17 @@
 using namespace QueueFamilies;
 
 class Renderer {
+private:
+    VkSemaphore imageAvailableSemaphore;
+    VkSemaphore renderFinishedSemaphore;
+    
 public:
     static void createImageViews(Device* device);
     static void createRenderPass(Device* device);
     static void createCommandPool(Device* device);
     static void createCommandBuffers(Device* device);
-    static void drawFrame(Device* device);
+    
+    void createSemaphores(Device* device);
+    void drawFrame(Device* device);
+    void cleanup(Device* device);
 };

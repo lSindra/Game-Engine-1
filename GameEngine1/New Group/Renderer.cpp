@@ -115,6 +115,22 @@ void Renderer::createCommandBuffers(Device *device) {
     }
 }
 
+void Renderer::createSemaphores(Device *device) {
+    VkSemaphoreCreateInfo semaphoreInfo = {};
+    semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+    
+    if (vkCreateSemaphore(device->logicalDevice, &semaphoreInfo, nullptr, &imageAvailableSemaphore) != VK_SUCCESS ||
+        vkCreateSemaphore(device->logicalDevice, &semaphoreInfo, nullptr, &renderFinishedSemaphore) != VK_SUCCESS) {
+        
+        throw std::runtime_error("failed to create semaphores!");
+    }
+}
+
 void Renderer::drawFrame(Device *device) {
     
+}
+
+void Renderer::cleanup(Device *device) {
+    vkDestroySemaphore(device->logicalDevice, renderFinishedSemaphore, nullptr);
+    vkDestroySemaphore(device->logicalDevice, imageAvailableSemaphore, nullptr);
 }

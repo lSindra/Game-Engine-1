@@ -80,6 +80,9 @@ void DeviceManager::initDevice() {
 
 void DeviceManager::cleanupSwapChain() {
     SwapChainManager::cleanup(device);
+    
+    vkDestroyBuffer(device->logicalDevice, device->vertexBuffer, nullptr);
+    vkFreeMemory(device->logicalDevice, device->vertexBufferMemory, nullptr);
 }
 
 void DeviceManager::cleanup() {

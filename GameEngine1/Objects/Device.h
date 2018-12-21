@@ -21,6 +21,8 @@ struct Device {
     VkPipeline graphicsPipeline;
     VkPipelineLayout pipelineLayout;
     VkRenderPass renderPass;
+    VkBuffer vertexBuffer;
+    VkDeviceMemory vertexBufferMemory;
     
     //Renderer
     VkCommandPool commandPool;

@@ -55,15 +55,16 @@ void SwapChainManager::initSwapChain(Device* device) {
 
 
 void SwapChainManager::createSwapChain(Device *device) {
-    vkDeviceWaitIdle(device->logicalDevice);
+    vkDeviceWaitIdle(device->logicalDevice); //needed?
     
-    SwapChainManager::initSwapChain(device);
-    SwapChainManager::createImageViews(device);
-    SwapChainManager::createRenderPass(device);
+    initSwapChain(device);
+    createImageViews(device);
+    createRenderPass(device);
     GraphicsPipeline::createGraphicsPipeline(device);
-    SwapChainManager::createFramebuffers(device);
-    SwapChainManager::createCommandPool(device);
-    SwapChainManager::createCommandBuffers(device);
+    createFrameBuffers(device);//pipeline
+    createCommandPool(device);//pipeline
+    GraphicsPipeline::createVertexBuffers(device);
+    createCommandBuffers(device);//pipeline
 }
 
 void SwapChainManager::recreateSwapChain(Device *device) {
@@ -77,13 +78,7 @@ void SwapChainManager::recreateSwapChain(Device *device) {
     
     cleanup(device);
     
-    SwapChainManager::initSwapChain(device);
-    SwapChainManager::createImageViews(device);
-    SwapChainManager::createRenderPass(device);
-    GraphicsPipeline::createGraphicsPipeline(device);
-    SwapChainManager::createFramebuffers(device);
-    SwapChainManager::createCommandPool(device);
-    SwapChainManager::createCommandBuffers(device);
+    createSwapChain(device);
 }
 
 SwapChainManager::SwapChainSupportDetails SwapChainManager::querySwapChainSupport(Device* device) {
@@ -153,7 +148,7 @@ VkExtent2D SwapChainManager::chooseSwapExtent(const VkSurfaceCapabilitiesKHR& ca
     }
 }
 
-void SwapChainManager::createFramebuffers(Device* device) {
+void SwapChainManager::createFrameBuffers(Device* device) {
     device->swapChain.swapChainFramebuffers.resize(device->swapChain.swapChainImageViews.size());
     
     for (size_t i = 0; i < device->swapChain.swapChainImageViews.size(); i++) {
@@ -257,6 +252,13 @@ void SwapChainManager::createCommandPool(Device *device) {
 }
 
 void SwapChainManager::createCommandBuffers(Device *device) {
+    //temp
+    const std::vector<Vertex> vertices = {
+        {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+        {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
+        {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
+    };
+    
     device->commandBuffers.resize(device->swapChain.swapChainFramebuffers.size());
     
     VkCommandBufferAllocateInfo allocInfo = {};
@@ -292,7 +294,12 @@ void SwapChainManager::createCommandBuffers(Device *device) {
         
         vkCmdBeginRenderPass(device->commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
         vkCmdBindPipeline(device->commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, device->graphicsPipeline);
-        vkCmdDraw(device->commandBuffers[i], 3, 1, 0, 0);
+        
+        VkBuffer vertexBuffers[] = {device->vertexBuffer};
+        VkDeviceSize offsets[] = {0};
+        vkCmdBindVertexBuffers(device->commandBuffers[i], 0, 1, vertexBuffers, offsets);
+        
+        vkCmdDraw(device->commandBuffers[i], static_cast<uint32_t>(vertices.size()), 1, 0, 0);
         vkCmdEndRenderPass(device->commandBuffers[i]);
         
         if (vkEndCommandBuffer(device->commandBuffers[i]) != VK_SUCCESS) {

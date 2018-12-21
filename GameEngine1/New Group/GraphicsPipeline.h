@@ -5,8 +5,12 @@
 #include <vulkan/vulkan.h>
 #include "Device.h"
 #include "FileReader.h"
+#include "Shaders.h"
+
+using namespace Shaders;
 
 class GraphicsPipeline {  
 public:
     static void createGraphicsPipeline(Device* device);
+    static void createVertexBuffers(Device* device);
 };

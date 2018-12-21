@@ -55,16 +55,10 @@ void SwapChainManager::initSwapChain(Device* device) {
 
 
 void SwapChainManager::createSwapChain(Device *device) {
-    vkDeviceWaitIdle(device->logicalDevice); //needed?
-    
     initSwapChain(device);
     createImageViews(device);
     createRenderPass(device);
-    GraphicsPipeline::createGraphicsPipeline(device);
-    createFrameBuffers(device);//pipeline
-    createCommandPool(device);//pipeline
-    GraphicsPipeline::createVertexBuffers(device);
-    createCommandBuffers(device);//pipeline
+    GraphicsPipeline::create(device);
 }
 
 void SwapChainManager::recreateSwapChain(Device *device) {
@@ -148,29 +142,6 @@ VkExtent2D SwapChainManager::chooseSwapExtent(const VkSurfaceCapabilitiesKHR& ca
     }
 }
 
-void SwapChainManager::createFrameBuffers(Device* device) {
-    device->swapChain.swapChainFramebuffers.resize(device->swapChain.swapChainImageViews.size());
-    
-    for (size_t i = 0; i < device->swapChain.swapChainImageViews.size(); i++) {
-        VkImageView attachments[] = {
-            device->swapChain.swapChainImageViews[i]
-        };
-        
-        VkFramebufferCreateInfo framebufferInfo = {};
-        framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-        framebufferInfo.renderPass = device->renderPass;
-        framebufferInfo.attachmentCount = 1;
-        framebufferInfo.pAttachments = attachments;
-        framebufferInfo.width = device->swapChain.swapChainExtent.width;
-        framebufferInfo.height = device->swapChain.swapChainExtent.height;
-        framebufferInfo.layers = 1;
-        
-        if (vkCreateFramebuffer(device->logicalDevice, &framebufferInfo, nullptr, &device->swapChain.swapChainFramebuffers[i]) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create framebuffer!");
-        }
-    }
-}
-
 void SwapChainManager::createImageViews(Device *device) {
     device->swapChain.swapChainImageViews.resize(device->swapChain.swapChainImages.size());
     
@@ -233,78 +204,8 @@ void SwapChainManager::createRenderPass(Device *device) {
     renderPassInfo.dependencyCount = 1;
     renderPassInfo.pDependencies = &dependency;
     
-    if (vkCreateRenderPass(device->logicalDevice, &renderPassInfo, nullptr, &device->renderPass) != VK_SUCCESS) {
+    if (vkCreateRenderPass(device->logicalDevice, &renderPassInfo, nullptr, &device->graphics.renderPass) != VK_SUCCESS) {
         throw std::runtime_error("failed to create render pass!");
-    }
-}
-
-void SwapChainManager::createCommandPool(Device *device) {
-    QueueFamilyIndices queueFamilyIndices = QueueFamiliesManager::findQueueFamilies(device);
-    
-    VkCommandPoolCreateInfo poolInfo = {};
-    poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-    poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily.value();
-    poolInfo.flags = 0; // Optional
-    
-    if (vkCreateCommandPool(device->logicalDevice, &poolInfo, nullptr, &device->commandPool) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create command pool!");
-    }
-}
-
-void SwapChainManager::createCommandBuffers(Device *device) {
-    //temp
-    const std::vector<Vertex> vertices = {
-        {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
-        {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
-        {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
-    };
-    
-    device->commandBuffers.resize(device->swapChain.swapChainFramebuffers.size());
-    
-    VkCommandBufferAllocateInfo allocInfo = {};
-    allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-    allocInfo.commandPool = device->commandPool;
-    allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-    allocInfo.commandBufferCount = (uint32_t) device->commandBuffers.size();
-    
-    if (vkAllocateCommandBuffers(device->logicalDevice, &allocInfo, device->commandBuffers.data()) != VK_SUCCESS) {
-        throw std::runtime_error("failed to allocate command buffers!");
-    }
-    
-    for (size_t i = 0; i < device->commandBuffers.size(); i++) {
-        VkCommandBufferBeginInfo beginInfo = {};
-        beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-        beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
-        beginInfo.pInheritanceInfo = nullptr; // Optional
-        
-        if (vkBeginCommandBuffer(device->commandBuffers[i], &beginInfo) != VK_SUCCESS) {
-            throw std::runtime_error("failed to begin recording command buffer!");
-        }
-        
-        VkRenderPassBeginInfo renderPassInfo = {};
-        renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-        renderPassInfo.renderPass = device->renderPass;
-        renderPassInfo.framebuffer = device->swapChain.swapChainFramebuffers[i];
-        renderPassInfo.renderArea.offset = {0, 0};
-        renderPassInfo.renderArea.extent = device->swapChain.swapChainExtent;
-        
-        VkClearValue clearColor = {0.0f, 0.0f, 0.0f, 1.0f};
-        renderPassInfo.clearValueCount = 1;
-        renderPassInfo.pClearValues = &clearColor;
-        
-        vkCmdBeginRenderPass(device->commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-        vkCmdBindPipeline(device->commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, device->graphicsPipeline);
-        
-        VkBuffer vertexBuffers[] = {device->vertexBuffer};
-        VkDeviceSize offsets[] = {0};
-        vkCmdBindVertexBuffers(device->commandBuffers[i], 0, 1, vertexBuffers, offsets);
-        
-        vkCmdDraw(device->commandBuffers[i], static_cast<uint32_t>(vertices.size()), 1, 0, 0);
-        vkCmdEndRenderPass(device->commandBuffers[i]);
-        
-        if (vkEndCommandBuffer(device->commandBuffers[i]) != VK_SUCCESS) {
-            throw std::runtime_error("failed to record command buffer!");
-        }
     }
 }
 
@@ -313,11 +214,11 @@ void SwapChainManager::cleanup(Device* device) {
         vkDestroyFramebuffer(device->logicalDevice, device->swapChain.swapChainFramebuffers[i], nullptr);
     }
     
-    vkFreeCommandBuffers(device->logicalDevice, device->commandPool, static_cast<uint32_t>(device->commandBuffers.size()), device->commandBuffers.data());
+    vkFreeCommandBuffers(device->logicalDevice, device->graphics.commandPool, static_cast<uint32_t>(device->graphics.commandBuffers.size()), device->graphics.commandBuffers.data());
     
-    vkDestroyPipeline(device->logicalDevice, device->graphicsPipeline, nullptr);
-    vkDestroyPipelineLayout(device->logicalDevice, device->pipelineLayout, nullptr);
-    vkDestroyRenderPass(device->logicalDevice, device->renderPass, nullptr);
+    vkDestroyPipeline(device->logicalDevice, device->graphics.graphicsPipeline, nullptr);
+    vkDestroyPipelineLayout(device->logicalDevice, device->graphics.pipelineLayout, nullptr);
+    vkDestroyRenderPass(device->logicalDevice, device->graphics.renderPass, nullptr);
     
     for (size_t i = 0; i < device->swapChain.swapChainImageViews.size(); i++) {
         vkDestroyImageView(device->logicalDevice, device->swapChain.swapChainImageViews[i], nullptr);

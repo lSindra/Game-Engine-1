@@ -1,5 +1,11 @@
 #include "GraphicsPipeline.h"
 
+static const std::vector<Vertex> vertices = {
+    {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+    {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
+    {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
+};
+
 static VkShaderModule createShaderModule(Device* device, const std::vector<char>& code) {
     VkShaderModuleCreateInfo createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -105,7 +111,7 @@ void GraphicsPipeline::createGraphicsPipeline(Device* device) {
     pipelineLayoutInfo.setLayoutCount = 0;
     pipelineLayoutInfo.pushConstantRangeCount = 0;
     
-    if (vkCreatePipelineLayout(device->logicalDevice, &pipelineLayoutInfo, nullptr, &device->pipelineLayout) != VK_SUCCESS) {
+    if (vkCreatePipelineLayout(device->logicalDevice, &pipelineLayoutInfo, nullptr, &device->graphics.pipelineLayout) != VK_SUCCESS) {
         throw std::runtime_error("failed to create pipeline layout!");
     }
     
@@ -119,12 +125,12 @@ void GraphicsPipeline::createGraphicsPipeline(Device* device) {
     pipelineInfo.pRasterizationState = &rasterizer;
     pipelineInfo.pMultisampleState = &multisampling;
     pipelineInfo.pColorBlendState = &colorBlending;
-    pipelineInfo.layout = device->pipelineLayout;
-    pipelineInfo.renderPass = device->renderPass;
+    pipelineInfo.layout = device->graphics.pipelineLayout;
+    pipelineInfo.renderPass = device->graphics.renderPass;
     pipelineInfo.subpass = 0;
     pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
     
-    if (vkCreateGraphicsPipelines(device->logicalDevice, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &device->graphicsPipeline) != VK_SUCCESS) {
+    if (vkCreateGraphicsPipelines(device->logicalDevice, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &device->graphics.graphicsPipeline) != VK_SUCCESS) {
         throw std::runtime_error("failed to create graphics pipeline!");
     }
     
@@ -146,39 +152,126 @@ static uint32_t findMemoryType(Device* device, uint32_t typeFilter, VkMemoryProp
 }
 
 void GraphicsPipeline::createVertexBuffers(Device *device) {
-    //temp
-    const std::vector<Vertex> vertices = {
-        {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
-        {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
-        {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
-    };
-    
     VkBufferCreateInfo bufferInfo = {};
     bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     bufferInfo.size = sizeof(vertices[0]) * vertices.size();
     bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
     bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
     
-    if (vkCreateBuffer(device->logicalDevice, &bufferInfo, nullptr, &device->vertexBuffer) != VK_SUCCESS) {
+    if (vkCreateBuffer(device->logicalDevice, &bufferInfo, nullptr, &device->graphics.vertexBuffer) != VK_SUCCESS) {
         throw std::runtime_error("failed to create vertex buffer!");
     }
     
     VkMemoryRequirements memRequirements;
-    vkGetBufferMemoryRequirements(device->logicalDevice, device->vertexBuffer, &memRequirements);
+    vkGetBufferMemoryRequirements(device->logicalDevice, device->graphics.vertexBuffer, &memRequirements);
     
     VkMemoryAllocateInfo allocInfo = {};
     allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
     allocInfo.allocationSize = memRequirements.size;
     allocInfo.memoryTypeIndex = findMemoryType(device, memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
     
-    if (vkAllocateMemory(device->logicalDevice, &allocInfo, nullptr, &device->vertexBufferMemory) != VK_SUCCESS) {
+    if (vkAllocateMemory(device->logicalDevice, &allocInfo, nullptr, &device->graphics.vertexBufferMemory) != VK_SUCCESS) {
         throw std::runtime_error("failed to allocate vertex buffer memory!");
     }
     
-    vkBindBufferMemory(device->logicalDevice, device->vertexBuffer, device->vertexBufferMemory, 0);
+    vkBindBufferMemory(device->logicalDevice, device->graphics.vertexBuffer, device->graphics.vertexBufferMemory, 0);
     
     void* data;
-    vkMapMemory(device->logicalDevice, device->vertexBufferMemory, 0, bufferInfo.size, 0, &data);
+    vkMapMemory(device->logicalDevice, device->graphics.vertexBufferMemory, 0, bufferInfo.size, 0, &data);
     memcpy(data, vertices.data(), (size_t) bufferInfo.size);
-    vkUnmapMemory(device->logicalDevice, device->vertexBufferMemory);
+    vkUnmapMemory(device->logicalDevice, device->graphics.vertexBufferMemory);
+}
+
+void GraphicsPipeline::createFrameBuffers(Device* device) {
+    device->swapChain.swapChainFramebuffers.resize(device->swapChain.swapChainImageViews.size());
+    
+    for (size_t i = 0; i < device->swapChain.swapChainImageViews.size(); i++) {
+        VkImageView attachments[] = {
+            device->swapChain.swapChainImageViews[i]
+        };
+        
+        VkFramebufferCreateInfo framebufferInfo = {};
+        framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+        framebufferInfo.renderPass = device->graphics.renderPass;
+        framebufferInfo.attachmentCount = 1;
+        framebufferInfo.pAttachments = attachments;
+        framebufferInfo.width = device->swapChain.swapChainExtent.width;
+        framebufferInfo.height = device->swapChain.swapChainExtent.height;
+        framebufferInfo.layers = 1;
+        
+        if (vkCreateFramebuffer(device->logicalDevice, &framebufferInfo, nullptr, &device->swapChain.swapChainFramebuffers[i]) != VK_SUCCESS) {
+            throw runtime_error("failed to create framebuffer!");
+        }
+    }
+}
+
+void GraphicsPipeline::createCommandPool(Device *device) {
+    QueueFamilyIndices queueFamilyIndices = QueueFamiliesManager::findQueueFamilies(device);
+    
+    VkCommandPoolCreateInfo poolInfo = {};
+    poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
+    poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily.value();
+    poolInfo.flags = 0; // Optional
+    
+    if (vkCreateCommandPool(device->logicalDevice, &poolInfo, nullptr, &device->graphics.commandPool) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create command pool!");
+    }
+}
+
+void GraphicsPipeline::createCommandBuffers(Device *device) {
+    device->graphics.commandBuffers.resize(device->swapChain.swapChainFramebuffers.size());
+    
+    VkCommandBufferAllocateInfo allocInfo = {};
+    allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    allocInfo.commandPool = device->graphics.commandPool;
+    allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    allocInfo.commandBufferCount = (uint32_t) device->graphics.commandBuffers.size();
+    
+    if (vkAllocateCommandBuffers(device->logicalDevice, &allocInfo, device->graphics.commandBuffers.data()) != VK_SUCCESS) {
+        throw std::runtime_error("failed to allocate command buffers!");
+    }
+    
+    for (size_t i = 0; i < device->graphics.commandBuffers.size(); i++) {
+        VkCommandBufferBeginInfo beginInfo = {};
+        beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+        beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
+        beginInfo.pInheritanceInfo = nullptr; // Optional
+        
+        if (vkBeginCommandBuffer(device->graphics.commandBuffers[i], &beginInfo) != VK_SUCCESS) {
+            throw std::runtime_error("failed to begin recording command buffer!");
+        }
+        
+        VkRenderPassBeginInfo renderPassInfo = {};
+        renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+        renderPassInfo.renderPass = device->graphics.renderPass;
+        renderPassInfo.framebuffer = device->swapChain.swapChainFramebuffers[i];
+        renderPassInfo.renderArea.offset = {0, 0};
+        renderPassInfo.renderArea.extent = device->swapChain.swapChainExtent;
+        
+        VkClearValue clearColor = {0.0f, 0.0f, 0.0f, 1.0f};
+        renderPassInfo.clearValueCount = 1;
+        renderPassInfo.pClearValues = &clearColor;
+        
+        vkCmdBeginRenderPass(device->graphics.commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+        vkCmdBindPipeline(device->graphics.commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, device->graphics.graphicsPipeline);
+        
+        VkBuffer vertexBuffers[] = {device->graphics.vertexBuffer};
+        VkDeviceSize offsets[] = {0};
+        vkCmdBindVertexBuffers(device->graphics.commandBuffers[i], 0, 1, vertexBuffers, offsets);
+        
+        vkCmdDraw(device->graphics.commandBuffers[i], static_cast<uint32_t>(vertices.size()), 1, 0, 0);
+        vkCmdEndRenderPass(device->graphics.commandBuffers[i]);
+        
+        if (vkEndCommandBuffer(device->graphics.commandBuffers[i]) != VK_SUCCESS) {
+            throw std::runtime_error("failed to record command buffer!");
+        }
+    }
+}
+
+void GraphicsPipeline::create(Device *device) {
+    createGraphicsPipeline(device);
+    createFrameBuffers(device);
+    createCommandPool(device);
+    createVertexBuffers(device);
+    createCommandBuffers(device);
 }

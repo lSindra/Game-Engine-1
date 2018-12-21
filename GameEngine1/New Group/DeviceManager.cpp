@@ -81,12 +81,12 @@ void DeviceManager::initDevice() {
 void DeviceManager::cleanupSwapChain() {
     SwapChainManager::cleanup(device);
     
-    vkDestroyBuffer(device->logicalDevice, device->vertexBuffer, nullptr);
-    vkFreeMemory(device->logicalDevice, device->vertexBufferMemory, nullptr);
+    vkDestroyBuffer(device->logicalDevice, device->graphics.vertexBuffer, nullptr);
+    vkFreeMemory(device->logicalDevice, device->graphics.vertexBufferMemory, nullptr);
 }
 
 void DeviceManager::cleanup() {
-    vkDestroyCommandPool(device->logicalDevice, device->commandPool, nullptr);
+    vkDestroyCommandPool(device->logicalDevice, device->graphics.commandPool, nullptr);
     
     vkDestroyDevice(device->logicalDevice, nullptr);
     

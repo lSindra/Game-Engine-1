@@ -31,9 +31,6 @@ private:
     static void initSwapChain(Device* device);
     static void createImageViews(Device* device);
     static void createRenderPass(Device* device);
-    static void createCommandPool(Device* device);
-    static void createCommandBuffers(Device* device);
-    static void createFrameBuffers(Device* device);
     static VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
     static VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR> availablePresentModes);
     static VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities, Device* device);

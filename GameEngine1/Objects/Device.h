@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
 #include "SwapChain.h"
+#include "Graphics.h"
 
 #include <iostream>
 #include <vector>
@@ -18,15 +19,7 @@ struct Device {
     VkPhysicalDeviceProperties gpu_properties = {};
     
     //Graphics Pipeline
-    VkPipeline graphicsPipeline;
-    VkPipelineLayout pipelineLayout;
-    VkRenderPass renderPass;
-    VkBuffer vertexBuffer;
-    VkDeviceMemory vertexBufferMemory;
-    
-    //Renderer
-    VkCommandPool commandPool;
-    vector<VkCommandBuffer> commandBuffers;
+    Graphics graphics;
     
     //SwapChain
     SwapChain swapChain;

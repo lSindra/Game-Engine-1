@@ -69,6 +69,7 @@
 		2E9BA33121CAAD890061249D /* GraphicsPipeline.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GraphicsPipeline.cpp; sourceTree = "<group>"; };
 		2E9BA33221CAAD890061249D /* GraphicsPipeline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphicsPipeline.h; sourceTree = "<group>"; };
 		2E9BA33521CC15180061249D /* Shaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shaders.h; sourceTree = "<group>"; };
+		2E9BA33621CD31840061249D /* Graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Graphics.h; sourceTree = "<group>"; };
 		2EAEA0C621C94EB300D8901E /* QueueFamiliesManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = QueueFamiliesManager.cpp; sourceTree = "<group>"; };
 		2EAEA0C721C94EB300D8901E /* QueueFamiliesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueueFamiliesManager.h; sourceTree = "<group>"; };
 		2EB6295F21B9EBE200FCC9E5 /* GameEngine1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine1; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +133,7 @@
 			children = (
 				2E9BA33421CC14F60061249D /* Shaders */,
 				2E9BA32821CA670A0061249D /* Device.h */,
+				2E9BA33621CD31840061249D /* Graphics.h */,
 				2E9BA32D21CA9F7F0061249D /* SwapChain.h */,
 			);
 			path = Objects;

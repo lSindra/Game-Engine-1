@@ -14,7 +14,9 @@ struct Graphics {
     VkPipelineLayout pipelineLayout;
     VkRenderPass renderPass;
     VkBuffer vertexBuffer;
+    VkBuffer indexBuffer;
     VkDeviceMemory vertexBufferMemory;
+    VkDeviceMemory indexBufferMemory;
     VkCommandPool commandPool;
     vector<VkCommandBuffer> commandBuffers;
 };

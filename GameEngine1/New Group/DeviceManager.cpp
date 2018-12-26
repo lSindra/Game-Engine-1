@@ -81,6 +81,9 @@ void DeviceManager::initDevice() {
 void DeviceManager::cleanupSwapChain() {
     SwapChainManager::cleanup(device);
     
+    vkDestroyBuffer(device->logicalDevice, device->graphics.indexBuffer, nullptr);
+    vkFreeMemory(device->logicalDevice, device->graphics.indexBufferMemory, nullptr);
+    
     vkDestroyBuffer(device->logicalDevice, device->graphics.vertexBuffer, nullptr);
     vkFreeMemory(device->logicalDevice, device->graphics.vertexBufferMemory, nullptr);
 }

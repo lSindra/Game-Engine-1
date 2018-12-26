@@ -13,6 +13,8 @@ using namespace Shaders;
 
 class GraphicsPipeline {  
 private:
+    static void copyBuffer(Device* device, VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
+    static void createBuffer(Device* device, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
     static void createGraphicsPipeline(Device* device);
     static void createVertexBuffers(Device* device);
     static void createCommandPool(Device* device);

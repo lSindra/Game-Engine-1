@@ -11,6 +11,12 @@ using namespace glm;
 using namespace std;
 
 namespace Shaders {
+    struct UniformBufferObject {
+        mat4 model;
+        mat4 view;
+        mat4 proj;
+    };
+    
     struct Vertex {
         vec2 pos;
         vec3 color;

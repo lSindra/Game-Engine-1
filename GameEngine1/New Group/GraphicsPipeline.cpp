@@ -88,7 +88,7 @@ void GraphicsPipeline::createGraphicsPipeline(Device* device) {
     rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
     rasterizer.lineWidth = 1.0f;
     rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
-    rasterizer.frontFace = VK_FRONT_FACE_CLOCKWISE;
+    rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
     rasterizer.depthBiasEnable = VK_FALSE;
     
     VkPipelineMultisampleStateCreateInfo multisampling = {};
@@ -113,8 +113,8 @@ void GraphicsPipeline::createGraphicsPipeline(Device* device) {
     
     VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
     pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-    pipelineLayoutInfo.setLayoutCount = 0;
-    pipelineLayoutInfo.pushConstantRangeCount = 0;
+    pipelineLayoutInfo.setLayoutCount = 1;
+    pipelineLayoutInfo.pSetLayouts = &device->graphics.descriptorSetLayout;
     
     if (vkCreatePipelineLayout(device->logicalDevice, &pipelineLayoutInfo, nullptr, &device->graphics.pipelineLayout) != VK_SUCCESS) {
         throw std::runtime_error("failed to create pipeline layout!");
@@ -224,6 +224,18 @@ void GraphicsPipeline::createIndexBuffers(Device *device) {
     
     vkDestroyBuffer(device->logicalDevice, stagingBuffer, nullptr);
     vkFreeMemory(device->logicalDevice, stagingBufferMemory, nullptr);
+}
+
+void GraphicsPipeline::createUniformBuffers(Device *device) {
+    VkDeviceSize bufferSize = sizeof(UniformBufferObject);
+    
+    device->graphics.uniformBuffers.resize(device->swapChain.swapChainImages.size());
+    device->graphics.uniformBuffersMemory.resize(device->swapChain.swapChainImages.size());
+    
+    for (size_t i = 0; i < device->swapChain.swapChainImages.size(); i++) {
+        createBuffer(device, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+                     device->graphics.uniformBuffers[i], device->graphics.uniformBuffersMemory[i]);
+    }
 }
 
 void GraphicsPipeline::copyBuffer(Device* device, VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
@@ -341,6 +353,7 @@ void GraphicsPipeline::createCommandBuffers(Device *device) {
         vkCmdBindIndexBuffer(device->graphics.commandBuffers[i], device->graphics.indexBuffer,
                              0, VK_INDEX_TYPE_UINT16);
         
+        vkCmdBindDescriptorSets(device->graphics.commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, device->graphics.pipelineLayout, 0, 1, &device->graphics.descriptorSets[i], 0, nullptr);
         vkCmdDrawIndexed(device->graphics.commandBuffers[i], static_cast<uint32_t>(indices.size()), 1, 0, 0, 0);
         vkCmdEndRenderPass(device->graphics.commandBuffers[i]);
         
@@ -356,5 +369,8 @@ void GraphicsPipeline::create(Device *device) {
     createCommandPool(device);
     createVertexBuffers(device);
     createIndexBuffers(device);
+    createUniformBuffers(device);
+    DescriptorManager::createDescriptorPool(device);
+    DescriptorManager::createDescriptorSets(device);
     createCommandBuffers(device);
 }

@@ -7,6 +7,7 @@
 #include "QueueFamiliesManager.h"
 #include "GraphicsPipeline.h"
 #include "WindowManager.h"
+#include "DescriptorManager.h"
 
 #include <vector>
 

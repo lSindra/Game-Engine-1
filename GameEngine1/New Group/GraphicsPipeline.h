@@ -7,6 +7,7 @@
 #include "FileReader.h"
 #include "Shaders.h"
 #include "QueueFamiliesManager.h"
+#include "DescriptorManager.h"
 
 using namespace QueueFamilies;
 using namespace Shaders;
@@ -18,6 +19,7 @@ private:
     static void createGraphicsPipeline(Device* device);
     static void createVertexBuffers(Device* device);
     static void createIndexBuffers(Device* device);
+    static void createUniformBuffers(Device* device);
     static void createCommandPool(Device* device);
     static void createCommandBuffers(Device* device);
     static void createFrameBuffers(Device* device);

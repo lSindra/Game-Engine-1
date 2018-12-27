@@ -17,6 +17,7 @@
 		2E468FE521C2A6F500DDBFF3 /* libglfw.3.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E468FE321C2A6E600DDBFF3 /* libglfw.3.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2E48AF0521C80E7300B1E5EC /* WindowManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E48AF0321C80E7300B1E5EC /* WindowManager.cpp */; };
 		2E48AF0821C81CD200B1E5EC /* ValidationLayersManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E48AF0621C81CD200B1E5EC /* ValidationLayersManager.cpp */; };
+		2E91D25821D3E15C007AA26D /* DescriptorManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E91D25621D3E15C007AA26D /* DescriptorManager.cpp */; };
 		2E9BA32C21CA96E20061249D /* SwapChainManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E9BA32A21CA96E20061249D /* SwapChainManager.cpp */; };
 		2E9BA33021CAA85F0061249D /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E9BA32E21CAA85F0061249D /* Renderer.cpp */; };
 		2E9BA33321CAAD890061249D /* GraphicsPipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E9BA33121CAAD890061249D /* GraphicsPipeline.cpp */; };
@@ -60,6 +61,8 @@
 		2E48AF0421C80E7300B1E5EC /* WindowManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowManager.h; sourceTree = "<group>"; };
 		2E48AF0621C81CD200B1E5EC /* ValidationLayersManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ValidationLayersManager.cpp; sourceTree = "<group>"; };
 		2E48AF0721C81CD200B1E5EC /* ValidationLayersManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValidationLayersManager.h; sourceTree = "<group>"; };
+		2E91D25621D3E15C007AA26D /* DescriptorManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DescriptorManager.cpp; sourceTree = "<group>"; };
+		2E91D25721D3E15C007AA26D /* DescriptorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DescriptorManager.h; sourceTree = "<group>"; };
 		2E9BA32821CA670A0061249D /* Device.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
 		2E9BA32A21CA96E20061249D /* SwapChainManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SwapChainManager.cpp; sourceTree = "<group>"; };
 		2E9BA32B21CA96E20061249D /* SwapChainManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwapChainManager.h; sourceTree = "<group>"; };
@@ -110,6 +113,8 @@
 				2E48AF0721C81CD200B1E5EC /* ValidationLayersManager.h */,
 				2E9BA32A21CA96E20061249D /* SwapChainManager.cpp */,
 				2E9BA32B21CA96E20061249D /* SwapChainManager.h */,
+				2E91D25621D3E15C007AA26D /* DescriptorManager.cpp */,
+				2E91D25721D3E15C007AA26D /* DescriptorManager.h */,
 				2E9BA32E21CAA85F0061249D /* Renderer.cpp */,
 				2E9BA32F21CAA85F0061249D /* Renderer.h */,
 				2E9BA33121CAAD890061249D /* GraphicsPipeline.cpp */,
@@ -243,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E91D25821D3E15C007AA26D /* DescriptorManager.cpp in Sources */,
 				2E48AF0821C81CD200B1E5EC /* ValidationLayersManager.cpp in Sources */,
 				2E378A4021C3DD1400A53B5C /* FileReader.cpp in Sources */,
 				2E2874BF21C7D42B00A135CA /* Game.cpp in Sources */,

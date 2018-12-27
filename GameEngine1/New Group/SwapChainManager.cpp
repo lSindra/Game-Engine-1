@@ -58,6 +58,7 @@ void SwapChainManager::createSwapChain(Device *device) {
     initSwapChain(device);
     createImageViews(device);
     createRenderPass(device);
+    DescriptorManager::create(&device->logicalDevice, &device->graphics);
     GraphicsPipeline::create(device);
 }
 
@@ -215,6 +216,14 @@ void SwapChainManager::cleanup(Device* device) {
     }
     
     vkFreeCommandBuffers(device->logicalDevice, device->graphics.commandPool, static_cast<uint32_t>(device->graphics.commandBuffers.size()), device->graphics.commandBuffers.data());
+
+    vkDestroyDescriptorPool(device->logicalDevice, device->graphics.descriptorPool, nullptr);
+    vkDestroyDescriptorSetLayout(device->logicalDevice, device->graphics.descriptorSetLayout, nullptr);
+
+    for (size_t i = 0; i < device->swapChain.swapChainImages.size(); i++) {
+        vkDestroyBuffer(device->logicalDevice, device->graphics.uniformBuffers[i], nullptr);
+        vkFreeMemory(device->logicalDevice, device->graphics.uniformBuffersMemory[i], nullptr);
+    }
     
     vkDestroyPipeline(device->logicalDevice, device->graphics.graphicsPipeline, nullptr);
     vkDestroyPipelineLayout(device->logicalDevice, device->graphics.pipelineLayout, nullptr);

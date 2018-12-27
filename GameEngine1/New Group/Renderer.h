@@ -5,10 +5,16 @@
 #include <vulkan/vulkan.h>
 #include "Device.h"
 #include "SwapChainManager.h"
+#include <glm/gtc/matrix_transform.hpp>
+
+#include <chrono>
 
 using namespace std;
 
 class Renderer {
+public:
+    bool framebufferResized = false;
+    
 private:
     const int MAX_FRAMES_IN_FLIGHT = 2;
 
@@ -17,8 +23,8 @@ private:
     vector<VkSemaphore> imageAvailableSemaphores;
     vector<VkSemaphore> renderFinishedSemaphores;
     
-public:
-    bool framebufferResized = false;
+private:
+    void updateUniformBuffer(Device* device, uint32_t imageIndex);
     
 public:
     void createSemaphores(Device* device);
